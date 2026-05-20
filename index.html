@@ -3,118 +3,193 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Diagnóstico de Campo v5.0 — Porcinos y Aves</title>
+<title>Diagnóstico de Campo v6.0</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#ffffff;--bg2:#f5f5f3;--bg3:#ececea;
-  --text:#1a1a18;--text2:#6b6b67;--text3:#9b9b97;
-  --border:rgba(0,0,0,0.12);--border2:rgba(0,0,0,0.22);
-  --info-bg:#e6f1fb;--info-text:#185fa5;
-  --ok-bg:#eaf3de;--ok-text:#3b6d11;
-  --warn-bg:#faeeda;--warn-text:#854f0b;
-  --danger-bg:#fcebeb;--danger-text:#a32d2d;
-  --radius:8px;--radius-lg:12px;
+  --bg:#f7f6f2;--bg2:#eeecea;--bg3:#e5e3de;--bg4:#ffffff;
+  --text:#1c1b17;--text2:#6a6860;--text3:#a8a6a0;
+  --border:rgba(0,0,0,0.10);--border2:rgba(0,0,0,0.20);
+  --green:#2d6a4f;--green-bg:#eaf4ee;--green-light:#d8eed e;
+  --blue:#1a5fa8;--blue-bg:#e8f1fb;
+  --amber:#8a5700;--amber-bg:#fdf3df;
+  --red:#b02020;--red-bg:#fceaea;
+  --radius:10px;--radius-lg:16px;
+  --shadow:0 2px 12px rgba(0,0,0,0.08);
+  --font:'Sora',sans-serif;--mono:'DM Mono',monospace;
 }
-@media(prefers-color-scheme:dark){
-  :root{
-    --bg:#1e1e1c;--bg2:#2a2a28;--bg3:#323230;
-    --text:#f0f0ec;--text2:#a0a09c;--text3:#707070;
-    --border:rgba(255,255,255,0.12);--border2:rgba(255,255,255,0.22);
-    --info-bg:#0c447c;--info-text:#b5d4f4;
-    --ok-bg:#27500a;--ok-text:#c0dd97;
-    --warn-bg:#633806;--warn-text:#fac775;
-    --danger-bg:#791f1f;--danger-text:#f7c1c1;
-  }
-}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;color:var(--text);background:var(--bg3);min-height:100vh}
-.app{max-width:720px;margin:0 auto;padding:1rem}
-.header{text-align:center;background:var(--bg);border-radius:var(--radius-lg);padding:1.2rem;margin-bottom:1.5rem;border:0.5px solid var(--border)}
-.header h1{font-size:22px;font-weight:600;margin-bottom:4px}
-.header p{font-size:12px;color:var(--text2)}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#181814;--bg2:#22221e;--bg3:#2a2a25;--bg4:#1e1e1a;
+  --text:#f0efe9;--text2:#9a9890;--text3:#5a5855;
+  --border:rgba(255,255,255,0.10);--border2:rgba(255,255,255,0.20);
+  --green:#52c48a;--green-bg:#122b1d;
+  --blue:#6aabf0;--blue-bg:#0d2e52;
+  --amber:#f0b830;--amber-bg:#3a2800;
+  --red:#f07070;--red-bg:#3a1010;
+  --shadow:0 2px 12px rgba(0,0,0,0.30);
+}}
+body{font-family:var(--font);font-size:14px;color:var(--text);background:var(--bg);min-height:100vh}
+.app{max-width:760px;margin:0 auto;padding:1rem 1rem 3rem}
+
+/* HEADER */
+.header{text-align:center;background:var(--bg4);border-radius:var(--radius-lg);padding:1.4rem 1rem;margin-bottom:1.2rem;border:1px solid var(--border);box-shadow:var(--shadow)}
+.header h1{font-size:21px;font-weight:700;letter-spacing:-0.3px}
+.header p{font-size:11px;color:var(--text2);margin-top:4px;font-family:var(--mono)}
 
 /* SELECTOR */
-.selector{display:flex;gap:16px;margin-bottom:1.5rem}
-.sel-btn{flex:1;padding:1.5rem 1rem;border-radius:var(--radius-lg);border:2px solid var(--border);background:var(--bg);cursor:pointer;text-align:center;transition:all .2s}
+.selector{display:flex;gap:12px;margin-bottom:1.2rem}
+.sel-btn{flex:1;padding:1.2rem 0.8rem;border-radius:var(--radius-lg);border:2px solid var(--border);background:var(--bg4);cursor:pointer;text-align:center;transition:all .2s;font-family:var(--font)}
 .sel-btn:hover{border-color:var(--border2);background:var(--bg2)}
-.sel-btn.active-cerdo{border-color:#1F5C2E;background:#eaf3de}
-.sel-btn.active-ave{border-color:#185fa5;background:#e6f1fb}
-.sel-icon{font-size:40px;margin-bottom:8px}
-.sel-label{font-size:16px;font-weight:600;color:var(--text)}
-.sel-sub{font-size:12px;color:var(--text2);margin-top:4px;line-height:1.5}
+.sel-btn.active-cerdo{border-color:var(--green);background:var(--green-bg)}
+.sel-btn.active-ave{border-color:var(--blue);background:var(--blue-bg)}
+.sel-icon{font-size:36px;margin-bottom:6px}
+.sel-label{font-size:15px;font-weight:700;color:var(--text)}
+.sel-sub{font-size:11px;color:var(--text2);margin-top:3px;line-height:1.5}
 
-.tabs{display:flex;gap:4px;margin-bottom:1.5rem;background:var(--bg);border-radius:var(--radius-lg);padding:6px;overflow-x:auto;border:0.5px solid var(--border)}
-.tab{padding:8px 14px;font-size:13px;cursor:pointer;border:none;background:none;color:var(--text2);border-radius:var(--radius);white-space:nowrap;transition:all .15s}
-.tab.active{background:var(--bg3);color:var(--text);font-weight:500}
+/* TABS */
+.tabs{display:flex;gap:3px;margin-bottom:1.2rem;background:var(--bg4);border-radius:var(--radius-lg);padding:5px;overflow-x:auto;border:1px solid var(--border)}
+.tab{padding:7px 13px;font-size:12px;cursor:pointer;border:none;background:none;color:var(--text2);border-radius:var(--radius);white-space:nowrap;transition:all .15s;font-family:var(--font);font-weight:500}
+.tab.active{background:var(--bg3);color:var(--text);font-weight:600}
 .tab:hover:not(.active){background:var(--bg2)}
 .section{display:none}.section.active{display:block}
-.panel{background:var(--bg);border-radius:var(--radius-lg);padding:1rem;margin-bottom:1rem;border:0.5px solid var(--border)}
-.field{margin-bottom:12px}
-.field label{display:block;font-size:12px;color:var(--text2);margin-bottom:4px}
-.field input,.field select,.field textarea{width:100%;padding:8px 10px;border:0.5px solid var(--border);border-radius:var(--radius);background:var(--bg);color:var(--text);font-size:13px;outline:none;transition:border .15s}
+
+/* PANELS */
+.panel{background:var(--bg4);border-radius:var(--radius-lg);padding:1rem;margin-bottom:1rem;border:1px solid var(--border);box-shadow:var(--shadow)}
+.panel-title{font-size:13px;font-weight:700;margin-bottom:12px;padding:6px 12px;background:var(--bg2);border-radius:var(--radius);letter-spacing:0.2px}
+
+/* FIELDS */
+.field{margin-bottom:11px}
+.field label{display:block;font-size:11px;color:var(--text2);margin-bottom:3px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px}
+.field input,.field select,.field textarea{width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg);color:var(--text);font-size:13px;outline:none;transition:border .15s;font-family:var(--font)}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--border2)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
 @media(max-width:500px){.grid2,.grid3{grid-template-columns:1fr}.selector{flex-direction:column}}
-.subsection-title{font-size:14px;font-weight:600;margin-bottom:12px;padding:6px 12px;background:var(--bg2);border-radius:var(--radius)}
-.tag-select{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
-.tag{padding:4px 12px;border-radius:20px;font-size:12px;border:0.5px solid var(--border);cursor:pointer;background:var(--bg2);transition:all .15s;user-select:none}
+
+/* TAGS */
+.tag-select{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+.tag{padding:4px 11px;border-radius:20px;font-size:11px;border:1px solid var(--border);cursor:pointer;background:var(--bg2);transition:all .15s;user-select:none;font-family:var(--font);font-weight:500}
 .tag:hover{border-color:var(--border2)}
 .tag.selected{background:var(--text);color:var(--bg);border-color:var(--text)}
-.btn{padding:9px 18px;border-radius:var(--radius);border:0.5px solid var(--border2);background:transparent;color:var(--text);cursor:pointer;font-size:13px;transition:all .15s}
+
+/* BUTTONS */
+.btn{padding:8px 16px;border-radius:var(--radius);border:1px solid var(--border2);background:transparent;color:var(--text);cursor:pointer;font-size:13px;transition:all .15s;font-family:var(--font);font-weight:500}
 .btn:hover{background:var(--bg2)}
 .btn-primary{background:var(--text);color:var(--bg);border-color:var(--text)}
 .btn-primary:hover{opacity:0.85}
-.btn-danger{border-color:var(--danger-text);color:var(--danger-text)}
-.btn-danger:hover{background:var(--danger-bg)}
+.btn-green{background:var(--green);color:#fff;border-color:var(--green)}
+.btn-green:hover{opacity:0.85}
+.btn-blue{background:var(--blue);color:#fff;border-color:var(--blue)}
+.btn-blue:hover{opacity:0.85}
+.btn-danger{border-color:var(--red);color:var(--red)}
+.btn-danger:hover{background:var(--red-bg)}
 .btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:1rem}
-.enf-item{border:0.5px solid var(--border);border-radius:var(--radius);margin-bottom:8px;overflow:hidden}
+
+/* DISEASE LIST */
+.enf-item{border:1px solid var(--border);border-radius:var(--radius);margin-bottom:8px;overflow:hidden}
 .enf-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:pointer;background:var(--bg2);transition:background .15s}
 .enf-header:hover{background:var(--bg3)}
-.enf-name{font-size:13px;font-weight:500}
-.enf-body{padding:12px 14px;display:none;border-top:0.5px solid var(--border)}
+.enf-name{font-size:13px;font-weight:600}
+.enf-body{padding:12px 14px;display:none;border-top:1px solid var(--border)}
 .enf-body.open{display:block}
 .enf-row{display:flex;gap:8px;margin-bottom:8px;align-items:flex-start}
-.enf-label{font-size:11px;color:var(--text2);min-width:90px;padding-top:2px}
-.enf-val{font-size:12px;flex:1}
+.enf-label{font-size:11px;color:var(--text2);min-width:90px;padding-top:2px;font-weight:600;text-transform:uppercase}
+.enf-val{font-size:12px;flex:1;line-height:1.6}
 .badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;margin:2px;font-weight:500}
-.badge-info{background:var(--info-bg);color:var(--info-text)}
-.peso-table{width:100%;border-collapse:collapse;font-size:12px}
-.peso-table th{background:var(--bg2);padding:6px 10px;text-align:center;font-weight:600;font-size:11px;border-bottom:0.5px solid var(--border)}
-.peso-table td{padding:5px 10px;text-align:center;border-bottom:0.5px solid var(--border)}
-.peso-table tr:last-child td{border:none}
-.peso-table .highlight{background:var(--info-bg);color:var(--info-text);font-weight:600}
-.hist-item{border:0.5px solid var(--border);border-radius:var(--radius);padding:12px 16px;margin-bottom:8px;cursor:pointer;transition:all .15s;background:var(--bg)}
+.badge-blue{background:var(--blue-bg);color:var(--blue)}
+.badge-green{background:var(--green-bg);color:var(--green)}
+.badge-amber{background:var(--amber-bg);color:var(--amber)}
+
+/* TABLE */
+.data-table{width:100%;border-collapse:collapse;font-size:12px;font-family:var(--mono)}
+.data-table th{background:var(--bg2);padding:7px 10px;text-align:center;font-weight:600;font-size:11px;border-bottom:1px solid var(--border);font-family:var(--font);text-transform:uppercase;letter-spacing:0.4px}
+.data-table td{padding:5px 10px;text-align:center;border-bottom:1px solid var(--border)}
+.data-table tr:last-child td{border:none}
+.data-table .highlight{background:var(--blue-bg);color:var(--blue);font-weight:700}
+.data-table .highlight-green{background:var(--green-bg);color:var(--green);font-weight:700}
+
+/* HISTORY */
+.hist-item{border:1px solid var(--border);border-radius:var(--radius);padding:11px 15px;margin-bottom:8px;cursor:pointer;transition:all .15s;background:var(--bg4)}
 .hist-item:hover{border-color:var(--border2);background:var(--bg2)}
-.hist-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
-.hist-granja{font-size:14px;font-weight:500}
-.hist-fecha{font-size:11px;color:var(--text2)}
-.hist-meta{font-size:12px;color:var(--text2)}
-.report-box{background:var(--bg2);border-radius:var(--radius);padding:1rem;font-size:12px;line-height:1.9;white-space:pre-wrap;max-height:420px;overflow-y:auto;margin-bottom:12px;font-family:monospace}
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:100;align-items:center;justify-content:center;padding:1rem}
+.hist-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px}
+.hist-granja{font-size:13px;font-weight:600}
+.hist-fecha{font-size:11px;color:var(--text2);font-family:var(--mono)}
+.hist-meta{font-size:11px;color:var(--text2)}
+
+/* REPORT */
+.report-box{background:var(--bg2);border-radius:var(--radius);padding:1rem;font-size:12px;line-height:1.9;white-space:pre-wrap;max-height:420px;overflow-y:auto;margin-bottom:12px;font-family:var(--mono)}
+
+/* MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:100;align-items:center;justify-content:center;padding:1rem}
 .modal-bg.open{display:flex}
-.modal{background:var(--bg);border-radius:var(--radius-lg);padding:1.5rem;width:100%;max-width:580px;max-height:85vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,0.18)}
-.modal-title{font-size:16px;font-weight:600;margin-bottom:1rem}
-.alert{padding:9px 14px;border-radius:var(--radius);font-size:12px;margin-top:10px}
-.alert-ok{background:var(--ok-bg);color:var(--ok-text)}
-.weight-input-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
-.weight-input-row label{font-size:12px;min-width:175px;color:var(--text2)}
-.weight-input-row input{width:90px;padding:6px 8px;border:0.5px solid var(--border);border-radius:var(--radius);background:var(--bg);color:var(--text);font-size:12px}
-.diff{font-size:11px;min-width:130px}
-.diff-low{color:var(--danger-text)}
-.diff-ok{color:var(--ok-text)}
-.diff-high{color:var(--warn-text)}
-.empty-state{text-align:center;padding:2.5rem 1rem;color:var(--text2);font-size:13px}
+.modal{background:var(--bg4);border-radius:var(--radius-lg);padding:1.5rem;width:100%;max-width:600px;max-height:88vh;overflow-y:auto;box-shadow:0 16px 48px rgba(0,0,0,0.22)}
+.modal-title{font-size:16px;font-weight:700;margin-bottom:1rem}
+
+/* ALERTS */
+.alert{padding:9px 14px;border-radius:var(--radius);font-size:12px;margin-top:10px;font-weight:500}
+.alert-ok{background:var(--green-bg);color:var(--green)}
+.alert-err{background:var(--red-bg);color:var(--red)}
+.alert-info{background:var(--blue-bg);color:var(--blue)}
+
+/* DIFF */
+.weight-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.weight-row label{font-size:12px;min-width:185px;color:var(--text2)}
+.weight-row input{width:90px;padding:6px 8px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg);color:var(--text);font-size:12px;font-family:var(--mono)}
+.diff{font-size:11px;min-width:130px;font-weight:600}
+.diff-low{color:var(--red)}
+.diff-ok{color:var(--green)}
+.diff-high{color:var(--amber)}
+
+/* EMPTY */
+.empty{text-align:center;padding:2.5rem 1rem;color:var(--text2);font-size:13px}
+
+/* AI DIAGNOSIS */
+.ai-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;margin-top:12px;font-size:13px;line-height:1.8;min-height:80px}
+.ai-loading{display:flex;align-items:center;gap:8px;color:var(--text2);font-size:13px}
+.spinner{width:18px;height:18px;border:2px solid var(--border2);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* PHOTO UPLOAD */
+.photo-zone{border:2px dashed var(--border2);border-radius:var(--radius);padding:1.5rem;text-align:center;cursor:pointer;transition:all .2s;position:relative}
+.photo-zone:hover{border-color:var(--blue);background:var(--blue-bg)}
+.photo-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
+.photo-zone p{font-size:13px;color:var(--text2)}
+.photo-zone .icon{font-size:32px;margin-bottom:8px}
+.photo-preview{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.photo-thumb{position:relative;width:90px;height:90px}
+.photo-thumb img{width:100%;height:100%;object-fit:cover;border-radius:var(--radius);border:1px solid var(--border)}
+.photo-thumb .rm-btn{position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;background:var(--red);color:#fff;border:none;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;line-height:1}
+
+/* GALPON SECTION */
+.galpon-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:10px}
+.galpon-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.galpon-num{font-size:13px;font-weight:700}
+.galpon-remove{background:none;border:none;color:var(--red);cursor:pointer;font-size:16px}
+
+/* SEMANA RAZA SELECTOR */
+.raza-tabs{display:flex;gap:6px;margin-bottom:12px}
+.raza-tab{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--bg2);transition:all .15s;font-family:var(--font)}
+.raza-tab.active-hl{background:var(--blue);color:#fff;border-color:var(--blue)}
+.raza-tab.active-lb{background:var(--green);color:#fff;border-color:var(--green)}
+
+/* MORT TABLE */
+.mort-status-ok{color:var(--green);font-weight:600}
+.mort-status-warn{color:var(--amber);font-weight:600}
+.mort-status-bad{color:var(--red);font-weight:600}
+
+/* CONSUMO BADGE */
+.consumo-info{background:var(--amber-bg);color:var(--amber);border-radius:var(--radius);padding:8px 12px;font-size:12px;font-weight:600;margin-top:8px;font-family:var(--mono)}
 </style>
 </head>
 <body>
 <div class="app">
   <div class="header">
     <h1>🌾 Diagnóstico de Campo</h1>
-    <p>Producción Porcina y Avícola &nbsp;·&nbsp; v5.0 &nbsp;·&nbsp; Hy-Line Brown + Porcinos ciclo completo</p>
+    <p>Producción Porcina y Avícola &nbsp;·&nbsp; v6.0 &nbsp;·&nbsp; Hy-Line Brown + Lohmann Brown + Porcinos</p>
   </div>
 
-  <!-- SELECTOR ANIMAL -->
+  <!-- SELECTOR ESPECIE -->
   <div class="selector">
     <button class="sel-btn" id="btn-cerdo" onclick="setModo('cerdo')">
       <div class="sel-icon">🐷</div>
@@ -124,23 +199,26 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
     <button class="sel-btn" id="btn-ave" onclick="setModo('ave')">
       <div class="sel-icon">🐔</div>
       <div class="sel-label">Aves</div>
-      <div class="sel-sub">Hy-Line Brown<br>Semana 1 – 80</div>
+      <div class="sel-sub">Hy-Line Brown<br>Lohmann Brown</div>
     </button>
   </div>
 
-  <!-- CONTENIDO PRINCIPAL (visible tras elegir) -->
+  <!-- MAIN -->
   <div id="main-content" style="display:none">
     <div class="tabs">
       <button class="tab active" onclick="showTab('visita')">📋 Nueva visita</button>
+      <button class="tab" onclick="showTab('galpones')">🏠 Galpones</button>
       <button class="tab" onclick="showTab('historial')">📂 Historial</button>
       <button class="tab" onclick="showTab('enf')">🔬 Enfermedades</button>
-      <button class="tab" onclick="showTab('pesos')">⚖️ Pesos ideales</button>
+      <button class="tab" onclick="showTab('pesos')">⚖️ Pesos / Consumo</button>
+      <button class="tab" onclick="showTab('mortalidad')">📊 Mortalidad</button>
+      <button class="tab" onclick="showTab('fotos')">📷 Fotos / IA</button>
     </div>
 
-    <!-- VISITA -->
+    <!-- =================== VISITA =================== -->
     <div class="section active" id="tab-visita">
       <div class="panel">
-        <div class="subsection-title" id="visita-titulo">Datos de visita</div>
+        <div class="panel-title" id="visita-titulo">Datos de visita</div>
         <div class="grid2">
           <div class="field"><label>Granja *</label><input id="v-granja" placeholder="Nombre de la granja"/></div>
           <div class="field"><label>Fecha</label><input type="date" id="v-fecha"/></div>
@@ -149,76 +227,76 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
         </div>
       </div>
 
-      <!-- FORMULARIO CERDOS -->
+      <!-- CERDOS -->
       <div class="panel" id="form-cerdo">
-        <div class="subsection-title">🐷 Datos del lote</div>
+        <div class="panel-title">🐷 Datos del lote</div>
         <div class="grid3">
           <div class="field"><label>Etapa productiva</label>
             <select id="c-etapa">
               <option value="">Seleccionar...</option>
-              <option>Gestación</option>
-              <option>Maternidad/Lactancia</option>
-              <option>Preinicio (0-7 días)</option>
-              <option>Inicio (7-28 días)</option>
-              <option>Levante (28-60 días)</option>
-              <option>Engorde (60-160 días)</option>
+              <option>Gestación</option><option>Maternidad/Lactancia</option>
+              <option>Preinicio (0-7 días)</option><option>Inicio (7-28 días)</option>
+              <option>Levante (28-60 días)</option><option>Engorde (60-160 días)</option>
             </select>
           </div>
           <div class="field"><label>Total animales</label><input type="number" id="c-total" min="0" value="0"/></div>
           <div class="field"><label>Enfermos</label><input type="number" id="c-enf" min="0" value="0"/></div>
           <div class="field"><label>Muertos</label><input type="number" id="c-muertos" min="0" value="0"/></div>
-          <div class="field"><label>Peso real promedio (kg)</label><input type="number" id="c-peso" step="0.1" placeholder="0.0"/></div>
+          <div class="field"><label>Peso real prom. (kg)</label><input type="number" id="c-peso" step="0.1" placeholder="0.0"/></div>
           <div class="field"><label>Temperatura rectal (°C)</label><input type="number" id="c-temp" step="0.1" placeholder="38.5"/></div>
         </div>
-        <div class="field"><label>Signos clínicos observados</label>
+        <div class="field"><label>Signos clínicos</label>
           <div class="tag-select" id="c-signos-tags">
-            <span class="tag" onclick="toggleTag(this)">Diarrea</span>
-            <span class="tag" onclick="toggleTag(this)">Vómito</span>
-            <span class="tag" onclick="toggleTag(this)">Tos/disnea</span>
-            <span class="tag" onclick="toggleTag(this)">Cojera</span>
-            <span class="tag" onclick="toggleTag(this)">Fiebre</span>
-            <span class="tag" onclick="toggleTag(this)">Anorexia</span>
-            <span class="tag" onclick="toggleTag(this)">Abortos</span>
-            <span class="tag" onclick="toggleTag(this)">Lesiones piel</span>
-            <span class="tag" onclick="toggleTag(this)">Letargia</span>
-            <span class="tag" onclick="toggleTag(this)">Temblores</span>
-            <span class="tag" onclick="toggleTag(this)">Prolapso rectal</span>
-            <span class="tag" onclick="toggleTag(this)">Hemorragia</span>
+            <span class="tag" onclick="toggleTag(this)">Diarrea</span><span class="tag" onclick="toggleTag(this)">Vómito</span>
+            <span class="tag" onclick="toggleTag(this)">Tos/disnea</span><span class="tag" onclick="toggleTag(this)">Cojera</span>
+            <span class="tag" onclick="toggleTag(this)">Fiebre</span><span class="tag" onclick="toggleTag(this)">Anorexia</span>
+            <span class="tag" onclick="toggleTag(this)">Abortos</span><span class="tag" onclick="toggleTag(this)">Lesiones piel</span>
+            <span class="tag" onclick="toggleTag(this)">Letargia</span><span class="tag" onclick="toggleTag(this)">Temblores</span>
+            <span class="tag" onclick="toggleTag(this)">Prolapso rectal</span><span class="tag" onclick="toggleTag(this)">Hemorragia</span>
           </div>
         </div>
-        <div class="field"><label>Tratamiento aplicado</label><input id="c-trat" placeholder="Medicamento, dosis, vía de administración"/></div>
+        <div class="field"><label>Tratamiento aplicado</label><input id="c-trat" placeholder="Medicamento, dosis, vía"/></div>
+        <div class="field"><label>Medicamentos administrados</label><input id="c-meds" placeholder="Ej: Oxitetraciclina 20mg/kg IM"/></div>
+        <div class="field"><label>Bebederos (cantidad)</label><input type="number" id="c-bebederos" min="0" placeholder="0"/></div>
       </div>
 
-      <!-- FORMULARIO AVES -->
+      <!-- AVES -->
       <div class="panel" id="form-ave" style="display:none">
-        <div class="subsection-title">🐔 Datos del lote</div>
-        <div class="grid3">
-          <div class="field"><label>Semana de vida (1-80)</label><input type="number" id="a-semana" min="1" max="80" placeholder="Ej: 24"/></div>
-          <div class="field"><label>Total aves</label><input type="number" id="a-total" min="0" value="0"/></div>
-          <div class="field"><label>Mortalidad</label><input type="number" id="a-muertas" min="0" value="0"/></div>
-          <div class="field"><label>Peso real promedio (g)</label><input type="number" id="a-peso" placeholder="0"/></div>
-          <div class="field"><label>Producción huevos (%)</label><input type="number" id="a-prod" min="0" max="100" placeholder="0"/></div>
-          <div class="field"><label>Consumo alimento (g/día/ave)</label><input type="number" id="a-alim" placeholder="0"/></div>
-        </div>
-        <div class="field"><label>Signos clínicos observados</label>
-          <div class="tag-select" id="a-signos-tags">
-            <span class="tag" onclick="toggleTag(this)">Diarrea</span>
-            <span class="tag" onclick="toggleTag(this)">Secreción nasal</span>
-            <span class="tag" onclick="toggleTag(this)">Disnea</span>
-            <span class="tag" onclick="toggleTag(this)">Caída producción</span>
-            <span class="tag" onclick="toggleTag(this)">Crestas pálidas</span>
-            <span class="tag" onclick="toggleTag(this)">Plumas erizadas</span>
-            <span class="tag" onclick="toggleTag(this)">Tos/estornudos</span>
-            <span class="tag" onclick="toggleTag(this)">Postración</span>
-            <span class="tag" onclick="toggleTag(this)">Torticolis</span>
-            <span class="tag" onclick="toggleTag(this)">Parálisis</span>
+        <div class="panel-title">🐔 Datos del lote — <span id="av-raza-label">Hy-Line Brown</span></div>
+        <!-- Selector raza inline -->
+        <div style="margin-bottom:12px">
+          <div class="raza-tabs">
+            <button class="raza-tab active-hl" id="rtab-hl" onclick="setRaza('HL')">Hy-Line Brown</button>
+            <button class="raza-tab" id="rtab-lb" onclick="setRaza('LB')">Lohmann Brown</button>
           </div>
         </div>
-        <div class="field"><label>Tratamiento aplicado</label><input id="a-trat" placeholder="Medicamento, dosis, vía de administración"/></div>
+        <div class="grid3">
+          <div class="field"><label>Semana de vida</label><input type="number" id="a-semana" min="1" max="100" placeholder="Ej: 24" oninput="actualizarConsumoVisita()"/></div>
+          <div class="field"><label>Total aves</label><input type="number" id="a-total" min="0" value="0"/></div>
+          <div class="field"><label>Mortalidad (aves)</label><input type="number" id="a-muertas" min="0" value="0"/></div>
+          <div class="field"><label>Peso real prom. (g)</label><input type="number" id="a-peso" placeholder="0"/></div>
+          <div class="field"><label>Producción huevos (%)</label><input type="number" id="a-prod" min="0" max="100" placeholder="0"/></div>
+          <div class="field"><label>Cons. alimento real (g/día/ave)</label><input type="number" id="a-alim" placeholder="0"/></div>
+          <div class="field"><label>Bebederos (cantidad)</label><input type="number" id="a-bebederos" min="0" placeholder="0"/></div>
+        </div>
+        <div id="consumo-visita-info" class="consumo-info" style="display:none"></div>
+        <div class="field"><label>Signos clínicos</label>
+          <div class="tag-select" id="a-signos-tags">
+            <span class="tag" onclick="toggleTag(this)">Diarrea</span><span class="tag" onclick="toggleTag(this)">Secreción nasal</span>
+            <span class="tag" onclick="toggleTag(this)">Disnea</span><span class="tag" onclick="toggleTag(this)">Caída producción</span>
+            <span class="tag" onclick="toggleTag(this)">Crestas pálidas</span><span class="tag" onclick="toggleTag(this)">Plumas erizadas</span>
+            <span class="tag" onclick="toggleTag(this)">Tos/estornudos</span><span class="tag" onclick="toggleTag(this)">Postración</span>
+            <span class="tag" onclick="toggleTag(this)">Torticolis</span><span class="tag" onclick="toggleTag(this)">Parálisis</span>
+            <span class="tag" onclick="toggleTag(this)">Ojos cerrados</span><span class="tag" onclick="toggleTag(this)">Inflamación facial</span>
+          </div>
+        </div>
+        <div class="field"><label>Enfermedades observadas</label><input id="a-enfermedades" placeholder="Ej: Newcastle sospechoso, IBV..."/></div>
+        <div class="field"><label>Medicamentos administrados</label><input id="a-meds" placeholder="Ej: Enrofloxacina 10mg/kg x5 días"/></div>
+        <div class="field"><label>Tratamiento adicional</label><input id="a-trat" placeholder="Vitaminas, electrolitos, otros"/></div>
       </div>
 
       <div class="panel">
-        <div class="subsection-title">📝 Observaciones generales</div>
+        <div class="panel-title">📝 Observaciones generales</div>
         <div class="field"><textarea id="v-obs" rows="4" placeholder="Condiciones de instalaciones, higiene, ventilación, alimentación, agua, etc."></textarea></div>
       </div>
       <div class="btn-row">
@@ -228,37 +306,97 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
       <div id="alert-area"></div>
     </div>
 
-    <!-- HISTORIAL -->
+    <!-- =================== GALPONES =================== -->
+    <div class="section" id="tab-galpones">
+      <div class="panel">
+        <div class="panel-title">🏠 Gestión de Galpones por Unidad</div>
+        <div class="grid2">
+          <div class="field"><label>Número de galpones en la unidad</label>
+            <input type="number" id="n-galpones" min="1" max="30" placeholder="Ej: 4" oninput="generarGalpones()"/>
+          </div>
+        </div>
+        <div id="galpones-lista" style="margin-top:14px"></div>
+        <div class="btn-row" id="galpones-btns" style="display:none">
+          <button class="btn btn-primary" onclick="guardarGalpones()">💾 Guardar datos de galpones</button>
+          <button class="btn" onclick="verResumenGalpones()">📊 Ver resumen</button>
+        </div>
+        <div id="galpon-alert"></div>
+      </div>
+    </div>
+
+    <!-- =================== HISTORIAL =================== -->
     <div class="section" id="tab-historial">
       <div class="panel">
         <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:1rem">
-          <input id="hist-buscar" placeholder="🔍 Buscar por granja..." oninput="renderHistorial()" style="flex:1;min-width:160px;padding:8px 10px;border:0.5px solid var(--border);border-radius:var(--radius);background:var(--bg);color:var(--text);font-size:13px"/>
+          <input id="hist-buscar" placeholder="🔍 Buscar por granja..." oninput="renderHistorial()" style="flex:1;min-width:160px;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg);color:var(--text);font-size:13px;font-family:var(--font)"/>
           <div style="display:flex;gap:8px">
             <button class="btn" onclick="exportarTodo()">⬇ Exportar</button>
             <button class="btn btn-danger" onclick="if(confirm('¿Borrar TODO el historial?')){historial=[];saveHist();renderHistorial()}">Borrar todo</button>
           </div>
         </div>
-        <div id="hist-list"><div class="empty-state">No hay reportes guardados aún.</div></div>
+        <div id="hist-list"><div class="empty">No hay reportes guardados aún.</div></div>
       </div>
     </div>
 
-    <!-- ENFERMEDADES -->
+    <!-- =================== ENFERMEDADES =================== -->
     <div class="section" id="tab-enf">
       <div class="panel">
-        <div class="subsection-title" id="enf-titulo"></div>
+        <div class="panel-title" id="enf-titulo"></div>
         <div id="enf-lista"></div>
-        <p style="font-size:11px;color:var(--text3);margin-top:10px">* Información de referencia. Consultar siempre con un médico veterinario antes de aplicar tratamientos.</p>
+        <p style="font-size:11px;color:var(--text3);margin-top:10px">* Información de referencia. Siempre consultar con un médico veterinario antes de aplicar tratamientos.</p>
       </div>
     </div>
 
-    <!-- PESOS IDEALES -->
+    <!-- =================== PESOS / CONSUMO =================== -->
     <div class="section" id="tab-pesos">
       <div class="panel" id="pesos-panel"></div>
     </div>
-  </div>
-</div>
 
-<!-- MODAL REPORTE NUEVO -->
+    <!-- =================== MORTALIDAD =================== -->
+    <div class="section" id="tab-mortalidad">
+      <div class="panel" id="mortalidad-panel"></div>
+    </div>
+
+    <!-- =================== FOTOS / IA =================== -->
+    <div class="section" id="tab-fotos">
+      <div class="panel">
+        <div class="panel-title">📷 Diagnóstico por Fotos con IA</div>
+        <p style="font-size:12px;color:var(--text2);margin-bottom:14px;line-height:1.7">Sube una o más fotos del animal y la IA analizará los signos visibles para sugerir un posible diagnóstico. Esto es orientativo — siempre confirmar con un veterinario.</p>
+
+        <div class="field"><label>Especie a evaluar</label>
+          <select id="foto-especie">
+            <option value="cerdo">🐷 Cerdo / Porcino</option>
+            <option value="ave">🐔 Ave / Gallina ponedora</option>
+          </select>
+        </div>
+        <div class="field"><label>Contexto adicional (opcional)</label>
+          <textarea id="foto-contexto" rows="2" placeholder="Ej: Lechón de 15 días, diarrea amarilla, temperatura 40°C, otros síntomas observados..."></textarea>
+        </div>
+
+        <div class="photo-zone" onclick="document.getElementById('foto-input').click()">
+          <input type="file" id="foto-input" accept="image/*" multiple onchange="onFotosSeleccionadas(event)"/>
+          <div class="icon">📸</div>
+          <p>Toca aquí para subir fotos</p>
+          <p style="font-size:11px;margin-top:4px;color:var(--text3)">JPG, PNG — Puedes subir varias</p>
+        </div>
+        <div class="photo-preview" id="foto-preview"></div>
+
+        <div class="btn-row">
+          <button class="btn btn-blue" onclick="diagnosticarConIA()">🤖 Analizar con IA</button>
+          <button class="btn" onclick="limpiarFotos()">🗑 Limpiar fotos</button>
+        </div>
+
+        <div id="ia-resultado" style="margin-top:14px;display:none">
+          <div style="font-size:12px;font-weight:700;color:var(--text2);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.4px">Análisis de la IA</div>
+          <div class="ai-box" id="ia-texto"></div>
+          <p style="font-size:11px;color:var(--text3);margin-top:8px">⚠️ Este diagnóstico es orientativo. No sustituye la evaluación de un médico veterinario.</p>
+        </div>
+      </div>
+    </div>
+  </div><!-- /main-content -->
+</div><!-- /app -->
+
+<!-- MODAL REPORTE -->
 <div class="modal-bg" id="modal-report">
   <div class="modal">
     <div class="modal-title">📄 Reporte generado</div>
@@ -284,22 +422,125 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
   </div>
 </div>
 
+<!-- MODAL RESUMEN GALPONES -->
+<div class="modal-bg" id="modal-galpones">
+  <div class="modal">
+    <div class="modal-title">📊 Resumen de Galpones</div>
+    <div class="report-box" id="modal-galpones-content"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="copiarResumenGalpones()">Copiar</button>
+      <button class="btn" onclick="document.getElementById('modal-galpones').classList.remove('open')">Cerrar</button>
+    </div>
+  </div>
+</div>
+
 <script>
-const HYLINE=[[1,67,80],[2,110,130],[3,155,180],[4,200,235],[5,255,295],[6,310,360],[7,370,425],[8,430,490],[9,490,555],[10,550,620],[11,610,685],[12,670,750],[13,730,815],[14,790,880],[15,850,940],[16,910,1000],[17,980,1070],[18,1100,1180],[19,1250,1320],[20,1380,1460],[21,1480,1560],[22,1540,1620],[23,1580,1660],[24,1600,1690],[25,1610,1700],[26,1620,1710],[27,1630,1720],[28,1640,1730],[29,1650,1740],[30,1660,1750],[32,1670,1760],[34,1680,1770],[36,1690,1780],[40,1700,1790],[44,1710,1800],[48,1720,1810],[52,1730,1820],[56,1740,1830],[60,1745,1835],[65,1750,1840],[70,1755,1845],[75,1760,1850],[80,1760,1850]];
+// ============================================================
+// DATOS: HYLINE BROWN (semana, min g, max g, consumo g/día, prod%, mort% acum ideal)
+// Extendido hasta semana 100
+// ============================================================
+const HYLINE = [
+  // [sem, pesoMin, pesoMax, consumoGdia, prodPorc, mortAcumPorc]
+  [1,67,80,10,0,0.3],[2,110,130,16,0,0.4],[3,155,180,22,0,0.5],[4,200,235,28,0,0.6],
+  [5,255,295,35,0,0.7],[6,310,360,42,0,0.8],[7,370,425,50,0,0.9],[8,430,490,57,0,1.0],
+  [9,490,555,64,0,1.1],[10,550,620,71,0,1.2],[11,610,685,77,0,1.3],[12,670,750,82,0,1.4],
+  [13,730,815,87,0,1.5],[14,790,880,90,0,1.6],[15,850,940,92,0,1.7],[16,910,1000,94,0,1.8],
+  [17,980,1070,97,2,1.9],[18,1100,1180,100,20,2.0],[19,1250,1320,104,60,2.1],[20,1380,1460,108,82,2.2],
+  [21,1480,1560,110,90,2.3],[22,1540,1620,112,93,2.4],[23,1580,1660,113,94,2.5],[24,1600,1690,114,94,2.6],
+  [25,1610,1700,114,94,2.7],[26,1620,1710,114,93,2.8],[27,1630,1720,114,93,2.9],[28,1640,1730,114,92,3.0],
+  [29,1650,1740,113,92,3.1],[30,1660,1750,113,91,3.2],[32,1670,1760,112,91,3.4],[34,1680,1770,112,90,3.6],
+  [36,1690,1780,111,89,3.8],[40,1700,1790,110,88,4.2],[44,1710,1800,109,87,4.6],[48,1720,1810,108,86,5.0],
+  [52,1730,1820,107,85,5.5],[56,1740,1830,106,84,6.0],[60,1745,1835,105,82,6.5],[65,1750,1840,104,80,7.2],
+  [70,1755,1845,103,78,7.9],[75,1760,1850,102,75,8.7],[80,1760,1850,101,72,9.5],
+  // 80-100 semanas
+  [82,1755,1848,100,70,10.0],[84,1750,1845,99,68,10.5],[86,1748,1842,98,66,11.0],[88,1745,1840,97,64,11.6],
+  [90,1742,1837,96,62,12.2],[92,1738,1833,95,60,12.8],[94,1735,1830,94,58,13.4],[96,1730,1825,93,56,14.0],
+  [98,1725,1820,92,54,14.7],[100,1720,1815,91,52,15.4]
+];
 
-const CERDOS_ETAPAS=[{etapa:'Lechón nacimiento',edad:'0 días',min:1.0,max:1.5},{etapa:'Lechón destete',edad:'21-28 días',min:5.5,max:7.5},{etapa:'Preinicio',edad:'28-42 días',min:7,max:12},{etapa:'Inicio',edad:'42-70 días',min:12,max:25},{etapa:'Levante',edad:'70-120 días',min:25,max:55},{etapa:'Engorde entrada',edad:'120 días',min:55,max:65},{etapa:'Engorde salida',edad:'~160 días',min:90,max:115},{etapa:'Gilts 1er servicio',edad:'~220 días',min:125,max:145},{etapa:'Cerda gestante inicio',edad:'Semana 1',min:130,max:150},{etapa:'Cerda al parto',edad:'Día 114',min:165,max:195},{etapa:'Cerda destete',edad:'Día 21 lactancia',min:145,max:175},{etapa:'Verraco activo',edad:'Adulto',min:250,max:320}];
+// LOHMANN BROWN
+const LOHMANN = [
+  [1,65,78,10,0,0.3],[2,105,125,15,0,0.4],[3,150,175,21,0,0.5],[4,195,228,27,0,0.6],
+  [5,248,285,33,0,0.7],[6,300,348,40,0,0.8],[7,358,412,47,0,0.9],[8,415,475,54,0,1.0],
+  [9,475,538,60,0,1.1],[10,535,600,66,0,1.2],[11,595,665,72,0,1.3],[12,655,730,77,0,1.4],
+  [13,715,795,82,0,1.5],[14,775,860,86,0,1.6],[15,835,920,89,0,1.7],[16,895,980,92,0,1.8],
+  [17,960,1048,95,3,1.9],[18,1080,1155,98,22,2.0],[19,1220,1295,102,62,2.1],[20,1350,1435,106,83,2.2],
+  [21,1450,1535,108,91,2.3],[22,1510,1595,110,93,2.4],[23,1550,1638,111,94,2.5],[24,1570,1658,112,95,2.6],
+  [25,1580,1668,112,95,2.7],[26,1590,1678,112,94,2.8],[27,1600,1688,112,94,2.9],[28,1610,1698,111,93,3.0],
+  [29,1618,1708,111,92,3.1],[30,1625,1715,110,92,3.2],[32,1632,1722,109,91,3.4],[34,1638,1728,108,90,3.6],
+  [36,1644,1734,107,89,3.8],[40,1650,1740,106,87,4.2],[44,1656,1748,105,86,4.6],[48,1662,1755,104,85,5.0],
+  [52,1668,1762,103,84,5.5],[56,1674,1769,102,83,6.0],[60,1678,1773,101,81,6.5],[65,1682,1778,100,79,7.2],
+  [70,1686,1783,99,77,7.9],[75,1688,1785,98,74,8.7],[80,1690,1787,97,71,9.5],
+  [82,1686,1783,96,69,10.0],[84,1682,1779,95,67,10.5],[86,1678,1775,94,65,11.0],[88,1674,1771,93,63,11.6],
+  [90,1670,1767,92,61,12.2],[92,1665,1762,91,59,12.8],[94,1660,1757,90,57,13.4],[96,1654,1751,89,55,14.0],
+  [98,1648,1745,88,53,14.7],[100,1642,1738,87,51,15.4]
+];
 
-const ENF_PORCINAS=[{n:'Diarrea neonatal (E. coli)',signos:'Diarrea líquida amarillenta, deshidratación severa. Lechones de 1-4 días de vida.',medicamentos:['Enrofloxacina 5 mg/kg IM/SC c/24h x3-5 días','Amoxicilina 15 mg/kg IM c/12h','Colistina oral en agua de bebida','Electrolitos orales — rehidratación PRIORITARIA'],prev:'Vacunación de cerdas gestantes (E. coli), higiene estricta en maternidad, calostro abundante.'},{n:'Diarrea post-destete / PED',signos:'Diarrea acuosa abundante, vómito, letargia. Alta mortalidad en lechones menores de 10 días.',medicamentos:['Soporte hídrico IV u oral — PRIORIDAD ABSOLUTA','Plasma oral en lechones','Antibióticos solo si hay sobreinfección bacteriana confirmada'],prev:'Bioseguridad, vacunación materna, calor adecuado >32°C en zona de lechones.'},{n:'Disentería porcina (B. hyodysenteriae)',signos:'Diarrea mucoide y/o hemorrágica. Afecta principalmente cerdos de 8-14 semanas.',medicamentos:['Tiamulina 8 mg/kg en agua 5-7 días','Lincomicina 11 mg/kg IM c/24h','Tilosina en agua o IM','Metronidazol 20 mg/kg oral (complementario)'],prev:'Eliminación de moscas y roedores, bioseguridad en carga de camiones.'},{n:'Neumonía enzoótica (M. hyopneumoniae)',signos:'Tos crónica no productiva, retraso en crecimiento, escasa fiebre. Levante-engorde.',medicamentos:['Tiamulina 15 mg/kg IM por 3 días','Enrofloxacina 5 mg/kg SC/IM x5 días','Florfenicol 15 mg/kg IM c/48h — 2 dosis','Doxiciclina 10 mg/kg oral x7 días'],prev:'Vacunación a las 3 semanas de vida, buena ventilación, densidad adecuada.'},{n:'PRRS (Síndrome reproductivo y respiratorio)',signos:'Abortos tardíos, lechones débiles/momificados, fiebre, disnea, cianosis de orejas.',medicamentos:['Sin tratamiento antiviral específico','AINEs: Meloxicam 0.4 mg/kg IM para fiebre','Amoxicilina o enrofloxacina para infecciones secundarias'],prev:'Vacunación (viva o inactivada), bioseguridad estricta, cuarentena 60 días para nuevos animales.'},{n:'Mal rojo (Erisipela — E. rhusiopathiae)',signos:'Fiebre alta 42°C, manchas rojizas en forma de diamante en piel, cojera aguda, muerte súbita.',medicamentos:['Penicilina G sódica 20,000 UI/kg IM c/12h x3-5 días','Amoxicilina 20 mg/kg IM c/12h','Meloxicam 0.4 mg/kg IM para fiebre y dolor'],prev:'Vacunación semestral, higiene de instalaciones, control de barro y encharcamientos.'},{n:'PCV2 / Circovirus porcino',signos:'Síndrome de desmedro post-destete: pérdida progresiva de peso, ganglios aumentados, piel pálida/ictérica.',medicamentos:['Sin antiviral específico','Vitaminas liposolubles A, D, E parenteral','Hierro dextrano 200 mg IM','Antibióticos para infecciones secundarias'],prev:'Vacunación a los 21 días de vida, reducir estrés y carga animal.'},{n:'Sarna (Sarcoptes scabiei)',signos:'Prurito intenso, costras en orejas, hocico y cuello, retraso en crecimiento, agitación.',medicamentos:['Ivermectina 0.3 mg/kg SC — repetir en 14 días','Doramectina 0.3 mg/kg SC','Amitraz en baños tópicos (1 L / 2000 L agua)'],prev:'Cuarentena de animales nuevos, tratamiento preventivo al ingreso, limpieza de instalaciones.'}];
+const CERDOS_ETAPAS=[
+  {etapa:'Lechón nacimiento',edad:'0 días',min:1.0,max:1.5},
+  {etapa:'Lechón destete',edad:'21-28 días',min:5.5,max:7.5},
+  {etapa:'Preinicio',edad:'28-42 días',min:7,max:12},
+  {etapa:'Inicio',edad:'42-70 días',min:12,max:25},
+  {etapa:'Levante',edad:'70-120 días',min:25,max:55},
+  {etapa:'Engorde entrada',edad:'120 días',min:55,max:65},
+  {etapa:'Engorde salida',edad:'~160 días',min:90,max:115},
+  {etapa:'Gilts 1er servicio',edad:'~220 días',min:125,max:145},
+  {etapa:'Cerda gestante inicio',edad:'Semana 1',min:130,max:150},
+  {etapa:'Cerda al parto',edad:'Día 114',min:165,max:195},
+  {etapa:'Cerda destete',edad:'Día 21 lactancia',min:145,max:175},
+  {etapa:'Verraco activo',edad:'Adulto',min:250,max:320}
+];
 
-const ENF_AVES=[{n:'Newcastle (ENC)',signos:'Disnea, torticolis, parálisis, caída brusca de producción, diarrea verde. Alta mortalidad.',medicamentos:['Sin tratamiento antiviral específico','Vitaminas A, E, Complejo B en agua x5-7 días','Enrofloxacina 10 mg/kg para infecciones secundarias','Electrolitos orales para rehidratación'],prev:'Vacunación La Sota (gotas/spray) + Clon 30 o Inactivada según programa.'},{n:'Bronquitis infecciosa (IBV)',signos:'Tos, estornudos, secreción nasal, caída de producción, huevos deformes o con cáscara blanda.',medicamentos:['Sin tratamiento específico','Oxitetraciclina 10 mg/kg agua x5 días para secundarias','Vitaminas y electrolitos en agua','Tiamulina si hay Mycoplasma asociado'],prev:'Vacunación cepas Massachusetts + Variant (4/91 o 793/B) desde semana 1.'},{n:'Enfermedad de Marek',signos:'Parálisis progresiva de patas o alas, ataxia, iris gris, tumores viscerales.',medicamentos:['Sin tratamiento','Vitamina E + Selenio parenteral (soporte)','Eutanasia en casos severos'],prev:'Vacunación al día 1 de vida en planta de incubación. Bioseguridad en crianza.'},{n:'Cólera aviar (P. multocida)',signos:'Muerte súbita, crestas cianóticas, diarrea amarillo-verdosa, disnea, babeo.',medicamentos:['Enrofloxacina 10 mg/kg oral o IM x5 días','Amoxicilina 10 mg/kg en agua x5-7 días','Sulfa + Trimetoprim 30/6 mg/kg en agua','Oxitetraciclina 10 mg/kg agua x5 días'],prev:'Vacunación bacterina, control de roedores y aves silvestres, bioseguridad.'},{n:'Salmonelosis aviar',signos:'Diarrea blanca pastosa (pullorum) o amarilla, postración, mortalidad en pollitos.',medicamentos:['Enrofloxacina 10 mg/kg x5 días','Ampicilina 10 mg/kg IM x5 días','Flumequina oral en agua'],prev:'Control en incubadora, desinfección, lote libre de Salmonella, control de vectores.'},{n:'Micoplasmosis (MG/MS)',signos:'Sinusitis infraorbitaria (inflamación facial), conjuntivitis, tos crónica, reducción de huevos.',medicamentos:['Tilosina 0.5 g/L en agua x5-7 días','Enrofloxacina 5-10 mg/kg x5 días','Doxiciclina 25-50 mg/kg oral x7 días','Tilmicosina en agua según peso vivo'],prev:'Vacunación MG viva (F-cepa o ts-11), mantenimiento de lote libre.'},{n:'Coccidiosis (Eimeria spp.)',signos:'Diarrea con sangre, plumas erizadas, postración, anorexia, alta mortalidad en pollitas jóvenes.',medicamentos:['Toltrazuril 7 mg/kg oral — dosis única','Amprolium 125 mg/L en agua x5-7 días','Sulfa + Trimetoprim oral x5 días','Diclazuril oral (preventivo y curativo)'],prev:'Coccidiostatos en alimento, limpieza y secado de cama, densidad adecuada.'},{n:'Viruela aviar (Fowlpox)',signos:'Nódulos papulosos en cresta, patas y párpados. Forma húmeda: placas diftéricas en boca y tráquea.',medicamentos:['Sin tratamiento antiviral','Yodo glicerinado tópico en lesiones cutáneas','Vitamina A reforzada en agua','Antibióticos para sobreinfecciones bacterianas'],prev:'Vacunación viva atenuada ala-a-ala, control de mosquitos y vectores.'}];
+const ENF_PORCINAS=[
+  {n:'Diarrea neonatal (E. coli)',signos:'Diarrea líquida amarillenta, deshidratación severa. Lechones 1-4 días.',medicamentos:['Enrofloxacina 5 mg/kg IM/SC c/24h x3-5d','Amoxicilina 15 mg/kg IM c/12h','Colistina oral en agua','Electrolitos orales — PRIORITARIO'],prev:'Vacunación cerdas gestantes, higiene en maternidad, calostro abundante.'},
+  {n:'Diarrea post-destete / PED',signos:'Diarrea acuosa, vómito, letargia. Alta mortalidad en lechones <10 días.',medicamentos:['Soporte hídrico IV/oral — PRIORIDAD','Plasma oral en lechones','Antibióticos solo con sobreinfección confirmada'],prev:'Bioseguridad, vacunación materna, calor >32°C.'},
+  {n:'Disentería porcina (B. hyodysenteriae)',signos:'Diarrea mucoide/hemorrágica. Cerdos 8-14 semanas.',medicamentos:['Tiamulina 8 mg/kg agua 5-7d','Lincomicina 11 mg/kg IM c/24h','Tilosina en agua o IM','Metronidazol 20 mg/kg oral'],prev:'Control de moscas y roedores, bioseguridad.'},
+  {n:'Neumonía enzoótica (M. hyopneumoniae)',signos:'Tos crónica no productiva, retraso en crecimiento, poca fiebre.',medicamentos:['Tiamulina 15 mg/kg IM x3d','Enrofloxacina 5 mg/kg SC/IM x5d','Florfenicol 15 mg/kg IM c/48h (2 dosis)','Doxiciclina 10 mg/kg oral x7d'],prev:'Vacunación 3 semanas, buena ventilación, densidad adecuada.'},
+  {n:'PRRS (Síndrome reproductivo y respiratorio)',signos:'Abortos tardíos, lechones débiles/momificados, fiebre, disnea, cianosis.',medicamentos:['Sin antiviral específico','Meloxicam 0.4 mg/kg IM para fiebre','Amoxicilina/Enrofloxacina para secundarias'],prev:'Vacunación, bioseguridad estricta, cuarentena 60 días animales nuevos.'},
+  {n:'Mal rojo (Erisipela — E. rhusiopathiae)',signos:'Fiebre 42°C, manchas rombo-diamante en piel, cojera aguda, muerte súbita.',medicamentos:['Penicilina G 20,000 UI/kg IM c/12h x3-5d','Amoxicilina 20 mg/kg IM c/12h','Meloxicam 0.4 mg/kg IM'],prev:'Vacunación semestral, higiene, control de encharcamientos.'},
+  {n:'PCV2 / Circovirus porcino',signos:'Desmedro post-destete, pérdida de peso, ganglios aumentados, piel pálida.',medicamentos:['Sin antiviral específico','Vitaminas A,D,E parenteral','Hierro dextrano 200 mg IM','Antibióticos para secundarias'],prev:'Vacunación 21 días, reducir estrés y densidad.'},
+  {n:'Sarna (Sarcoptes scabiei)',signos:'Prurito intenso, costras en orejas/hocico/cuello, retraso en crecimiento.',medicamentos:['Ivermectina 0.3 mg/kg SC — repetir 14d','Doramectina 0.3 mg/kg SC','Amitraz tópico (1L/2000L agua)'],prev:'Cuarentena animales nuevos, tratamiento preventivo al ingreso.'},
+  {n:'PDNS / Dermatitis Nefropatía Porcina',signos:'Lesiones cutáneas hemorrágicas en piel, especialmente zona perineal. Anorexia, depresión. Puede asociarse a PCV2.',medicamentos:['Sin tratamiento específico eficaz','Soporte vitamínico A,D,E','AINEs: Meloxicam 0.4mg/kg','Antibióticos para infecciones secundarias'],prev:'Vacunación PCV2, reducir factores de estrés, diagnóstico diferencial con PPA.'}
+];
 
-let modo=null;
-let historial=[];
-let currentHistIdx=null;
+const ENF_AVES=[
+  {n:'Newcastle (ENC)',signos:'Disnea, torticolis, parálisis, caída brusca de producción, diarrea verde. Alta mortalidad.',medicamentos:['Sin antiviral específico','Vitaminas A,E,Complejo B en agua x5-7d','Enrofloxacina 10 mg/kg para secundarias','Electrolitos para rehidratación'],prev:'Vacunación La Sota + Clon 30 o Inactivada según programa.'},
+  {n:'Bronquitis infecciosa (IBV)',signos:'Tos, estornudos, secreción nasal, caída de producción, huevos deformes/cáscara blanda.',medicamentos:['Sin tratamiento específico','Oxitetraciclina 10 mg/kg agua x5d','Vitaminas y electrolitos','Tiamulina si Mycoplasma asociado'],prev:'Vacunación cepas Massachusetts + Variant desde semana 1.'},
+  {n:'Enfermedad de Marek',signos:'Parálisis progresiva de patas/alas, ataxia, iris gris, tumores viscerales.',medicamentos:['Sin tratamiento','Vitamina E + Selenio parenteral','Eutanasia en casos severos'],prev:'Vacunación al día 1 en planta de incubación.'},
+  {n:'Cólera aviar (P. multocida)',signos:'Muerte súbita, crestas cianóticas, diarrea amarillo-verdosa, disnea, babeo.',medicamentos:['Enrofloxacina 10 mg/kg IM/oral x5d','Amoxicilina 10 mg/kg agua x5-7d','Sulfa+Trimetoprim 30/6 mg/kg agua','Oxitetraciclina 10 mg/kg agua x5d'],prev:'Vacunación bacterina, control de roedores y aves silvestres.'},
+  {n:'Salmonelosis aviar',signos:'Diarrea blanca pastosa (pullorum) o amarilla, postración, mortalidad en pollitos.',medicamentos:['Enrofloxacina 10 mg/kg x5d','Ampicilina 10 mg/kg IM x5d','Flumequina oral en agua'],prev:'Control en incubadora, lote libre de Salmonella.'},
+  {n:'Micoplasmosis (MG/MS)',signos:'Sinusitis infraorbitaria, conjuntivitis, tos crónica, reducción de huevos.',medicamentos:['Tilosina 0.5 g/L agua x5-7d','Enrofloxacina 5-10 mg/kg x5d','Doxiciclina 25-50 mg/kg oral x7d','Tilmicosina en agua según PV'],prev:'Vacunación MG viva (F-cepa o ts-11).'},
+  {n:'Coccidiosis (Eimeria spp.)',signos:'Diarrea con sangre, plumas erizadas, postración, anorexia, alta mortalidad jóvenes.',medicamentos:['Toltrazuril 7 mg/kg oral — 1 dosis','Amprolium 125 mg/L agua x5-7d','Sulfa+Trimetoprim oral x5d','Diclazuril oral'],prev:'Coccidiostatos en alimento, limpieza y secado de cama.'},
+  {n:'Viruela aviar (Fowlpox)',signos:'Nódulos papulosos en cresta, patas, párpados. Forma húmeda: placas diftéricas en boca.',medicamentos:['Sin antiviral','Yodo glicerinado tópico en lesiones','Vitamina A reforzada','Antibióticos para sobreinfecciones'],prev:'Vacunación viva atenuada ala-a-ala, control de mosquitos.'},
+  {n:'Laringotraqueitis infecciosa (ILT)',signos:'Disnea grave, extensión cuello al respirar, expectoración sangre/moco, caída producción.',medicamentos:['Sin tratamiento antiviral','Enrofloxacina para secundarias','Vitaminas A,C en agua','Tilosina en agua'],prev:'Vacunación viva atenuada en zonas enzoóticas.'},
+  {n:'Gumboro (IBD)',signos:'Postración, diarrea blanca/acuosa, plumas erizadas, inflamación bursa. Aves 3-6 semanas.',medicamentos:['Soporte hídrico y vitamínico','Vitamina C en agua x5d','Antibióticos si hay secundarias','Plasma hiperinmune en brotes graves'],prev:'Vacunación con cepa intermedia o inactivada materna.'}
+];
 
-function loadHist(){try{const d=localStorage.getItem('dcampo_v5');if(d)historial=JSON.parse(d)}catch(e){historial=[]}}
-function saveHist(){try{localStorage.setItem('dcampo_v5',JSON.stringify(historial))}catch(e){}}
+// ============================================================
+// ESTADO GLOBAL
+// ============================================================
+let modo = null;
+let razaAve = 'HL'; // 'HL' = Hy-Line, 'LB' = Lohmann
+let historial = [];
+let currentHistIdx = null;
+let fotosBase64 = [];
+let galponesData = [];
 
+function getDatos(raza){ return raza==='LB' ? LOHMANN : HYLINE; }
+function getRowByWeek(sem, raza){
+  const data = getDatos(raza);
+  return data.find(r=>r[0]===parseInt(sem)) || null;
+}
+
+// ============================================================
+// PERSISTENCIA
+// ============================================================
+function loadHist(){try{const d=localStorage.getItem('dcampo_v6');if(d)historial=JSON.parse(d)}catch(e){historial=[]}}
+function saveHist(){try{localStorage.setItem('dcampo_v6',JSON.stringify(historial))}catch(e){}}
+
+// ============================================================
+// MODO / RAZA
+// ============================================================
 function setModo(m){
   modo=m;
   document.getElementById('btn-cerdo').className='sel-btn'+(m==='cerdo'?' active-cerdo':'');
@@ -307,32 +548,73 @@ function setModo(m){
   document.getElementById('main-content').style.display='block';
   document.getElementById('form-cerdo').style.display=m==='cerdo'?'block':'none';
   document.getElementById('form-ave').style.display=m==='ave'?'block':'none';
-  document.getElementById('visita-titulo').textContent='Datos de visita — '+(m==='cerdo'?'🐷 Cerdos':'🐔 Aves Hy-Line Brown');
-  renderEnf();
-  renderPesos();
+  document.getElementById('visita-titulo').textContent='Datos de visita — '+(m==='cerdo'?'🐷 Cerdos':'🐔 Aves');
+  renderEnf(); renderPesos(); renderMortalidad();
   showTab('visita');
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
+function setRaza(r){
+  razaAve=r;
+  document.getElementById('rtab-hl').className='raza-tab'+(r==='HL'?' active-hl':'');
+  document.getElementById('rtab-lb').className='raza-tab'+(r==='LB'?' active-lb':'');
+  document.getElementById('av-raza-label').textContent=r==='HL'?'Hy-Line Brown':'Lohmann Brown';
+  renderPesos(); renderMortalidad();
+  actualizarConsumoVisita();
+}
+
+// ============================================================
+// TABS
+// ============================================================
 function showTab(t){
-  const tabs=['visita','historial','enf','pesos'];
+  const tabs=['visita','galpones','historial','enf','pesos','mortalidad','fotos'];
   document.querySelectorAll('.tab').forEach((b,i)=>b.classList.toggle('active',tabs[i]===t));
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.getElementById('tab-'+t).classList.add('active');
-  if(t==='historial')renderHistorial();
+  if(t==='historial') renderHistorial();
+  if(t==='pesos') renderPesos();
+  if(t==='mortalidad') renderMortalidad();
 }
 
+// ============================================================
+// TOGGLE TAG
+// ============================================================
 function toggleTag(el){el.classList.toggle('selected')}
 function getSelectedTags(id){return Array.from(document.querySelectorAll('#'+id+' .tag.selected')).map(t=>t.textContent)}
 
+// ============================================================
+// CONSUMO VISITA (actualización en tiempo real)
+// ============================================================
+function actualizarConsumoVisita(){
+  const sem = document.getElementById('a-semana').value;
+  const el = document.getElementById('consumo-visita-info');
+  if(!sem){el.style.display='none';return;}
+  const row = getRowByWeek(sem, razaAve);
+  if(!row){el.style.display='none';return;}
+  const cons = row[3];
+  const qq = (cons/46000).toFixed(5);
+  el.style.display='block';
+  el.textContent=`📦 Semana ${sem} — Consumo ideal: ${cons} g/día/ave | ${(cons*7).toLocaleString()} g/semana/ave | Ref: ${(parseFloat(qq)*1000).toFixed(2)} g/quintal-ave`;
+}
+
+// ============================================================
+// LIMPIAR FORM
+// ============================================================
 function limpiarForm(){
-  ['v-granja','v-encargado','v-lote','c-enf','c-muertos','c-peso','c-temp','c-trat','a-semana','a-muertas','a-peso','a-prod','a-alim','a-trat','v-obs'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  ['v-granja','v-encargado','v-lote','c-enf','c-muertos','c-peso','c-temp','c-trat','c-meds','c-bebederos',
+   'a-semana','a-muertas','a-peso','a-prod','a-alim','a-bebederos','a-trat','a-meds','a-enfermedades','v-obs'].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.value='';
+  });
   document.getElementById('c-total').value='0';
   document.getElementById('a-total').value='0';
   document.getElementById('c-etapa').value='';
   document.querySelectorAll('.tag.selected').forEach(t=>t.classList.remove('selected'));
+  document.getElementById('consumo-visita-info').style.display='none';
 }
 
+// ============================================================
+// GUARDAR VISITA
+// ============================================================
 function guardarVisita(){
   const granja=document.getElementById('v-granja').value.trim();
   if(!granja){alert('Por favor ingresa el nombre de la granja.');return;}
@@ -340,6 +622,7 @@ function guardarVisita(){
   const enc=document.getElementById('v-encargado').value||'—';
   const lote=document.getElementById('v-lote').value||'—';
   const obs=document.getElementById('v-obs').value||'Sin observaciones adicionales.';
+  const razaNombre=razaAve==='LB'?'Lohmann Brown':'Hy-Line Brown';
   let reporte='',resumen='';
 
   if(modo==='cerdo'){
@@ -350,17 +633,50 @@ function guardarVisita(){
     const cPeso=document.getElementById('c-peso').value;
     const cTemp=document.getElementById('c-temp').value;
     const cTrat=document.getElementById('c-trat').value||'—';
+    const cMeds=document.getElementById('c-meds').value||'—';
+    const cBeb=document.getElementById('c-bebederos').value||'—';
     const cSignos=getSelectedTags('c-signos-tags');
-    let pesoRef='';
-    if(cPeso&&cEtapa!=='—'){
-      const map={gestaci:8,maternidad:10,preinicio:2,inicio:3,levante:4,engorde:6};
-      const k=Object.keys(map).find(k=>cEtapa.toLowerCase().includes(k));
-      if(k){const e=CERDOS_ETAPAS[map[k]];const d=(parseFloat(cPeso)-e.min).toFixed(1);pesoRef=`\n     Ideal ${e.etapa}: ${e.min}–${e.max} kg | Diferencia: ${d>0?'+':''}${d} kg`;}
-    }
     const morb=parseInt(cTotal)>0?((parseInt(cEnf)/parseInt(cTotal))*100).toFixed(1):'0';
     const mort=parseInt(cTotal)>0?((parseInt(cMuertos)/parseInt(cTotal))*100).toFixed(1)+'%':'—';
-    reporte=`╔══════════════════════════════════════════╗\n  REPORTE DE VISITA — CERDOS\n  Diagnóstico de Campo v5.0\n╚══════════════════════════════════════════╝\n\n  Granja        : ${granja}\n  Fecha         : ${fecha}\n  Encargado     : ${enc}\n  Lote/Galpón   : ${lote}\n\n──────────────────────────────────────────\n  DATOS DEL LOTE\n──────────────────────────────────────────\n  Etapa         : ${cEtapa}\n  Total animales: ${cTotal}\n  Enfermos      : ${cEnf} (${morb}% morbilidad)\n  Mortalidad    : ${cMuertos} animales (${mort})\n  Peso promedio : ${cPeso?cPeso+' kg':'no registrado'}${pesoRef}\n  Temperatura   : ${cTemp?cTemp+' °C':'no registrada'}\n  Signos clínicos: ${cSignos.length?cSignos.join(', '):'Ninguno registrado'}\n  Tratamiento   : ${cTrat}\n\n──────────────────────────────────────────\n  OBSERVACIONES GENERALES\n──────────────────────────────────────────\n  ${obs}\n\n══════════════════════════════════════════\n  Generado: ${new Date().toLocaleString('es-SV')}\n══════════════════════════════════════════`;
-    resumen=`🐷 Cerdos — ${cEtapa||'etapa no especificada'} | ${cTotal} animales`;
+    let pesoRef='';
+    if(cPeso&&cEtapa!=='—'){
+      const map={gestaci:8,maternidad:9,preinicio:2,inicio:3,levante:4,engorde:5};
+      const k=Object.keys(map).find(k=>cEtapa.toLowerCase().includes(k));
+      if(k){const e=CERDOS_ETAPAS[map[k]];const d=(parseFloat(cPeso)-e.min).toFixed(1);pesoRef=`\n     Ideal: ${e.min}–${e.max} kg | Dif: ${d>0?'+':''}${d} kg`;}
+    }
+    reporte=`╔══════════════════════════════════════════╗
+  REPORTE DE VISITA — CERDOS
+  Diagnóstico de Campo v6.0
+╚══════════════════════════════════════════╝
+
+  Granja        : ${granja}
+  Fecha         : ${fecha}
+  Encargado     : ${enc}
+  Lote/Galpón   : ${lote}
+
+──────────────────────────────────────────
+  DATOS DEL LOTE
+──────────────────────────────────────────
+  Etapa         : ${cEtapa}
+  Total animales: ${cTotal}
+  Enfermos      : ${cEnf} (${morb}% morbilidad)
+  Mortalidad    : ${cMuertos} animales (${mort})
+  Peso promedio : ${cPeso?cPeso+' kg':'no registrado'}${pesoRef}
+  Temperatura   : ${cTemp?cTemp+' °C':'no registrada'}
+  Bebederos     : ${cBeb}
+  Signos clínicos: ${cSignos.length?cSignos.join(', '):'Ninguno registrado'}
+  Medicamentos  : ${cMeds}
+  Tratamiento   : ${cTrat}
+
+──────────────────────────────────────────
+  OBSERVACIONES GENERALES
+──────────────────────────────────────────
+  ${obs}
+
+══════════════════════════════════════════
+  Generado: ${new Date().toLocaleString('es-SV')}
+══════════════════════════════════════════`;
+    resumen=`🐷 Cerdos — ${cEtapa||'etapa n/e'} | ${cTotal} animales`;
   } else {
     const aSemana=document.getElementById('a-semana').value;
     const aTotal=document.getElementById('a-total').value||'0';
@@ -369,15 +685,58 @@ function guardarVisita(){
     const aProd=document.getElementById('a-prod').value;
     const aAlim=document.getElementById('a-alim').value;
     const aTrat=document.getElementById('a-trat').value||'—';
+    const aMeds=document.getElementById('a-meds').value||'—';
+    const aEnf=document.getElementById('a-enfermedades').value||'—';
+    const aBeb=document.getElementById('a-bebederos').value||'—';
     const aSignos=getSelectedTags('a-signos-tags');
-    let pesoRef='';
-    if(aSemana&&aPeso){const row=HYLINE.find(r=>r[0]===parseInt(aSemana));if(row){const d=(parseInt(aPeso)-row[1]).toFixed(0);pesoRef=`\n     Ideal sem.${aSemana}: ${row[1]}–${row[2]} g | Diferencia: ${d>0?'+':''}${d} g`;}}
-    const mort=parseInt(aTotal)>0?((parseInt(aMuertas)/parseInt(aTotal))*100).toFixed(1)+'%':'—';
-    reporte=`╔══════════════════════════════════════════╗\n  REPORTE DE VISITA — AVES (Hy-Line Brown)\n  Diagnóstico de Campo v5.0\n╚══════════════════════════════════════════╝\n\n  Granja        : ${granja}\n  Fecha         : ${fecha}\n  Encargado     : ${enc}\n  Lote/Galpón   : ${lote}\n\n──────────────────────────────────────────\n  DATOS DEL LOTE\n──────────────────────────────────────────\n  Semana de vida: ${aSemana||'—'}\n  Total aves    : ${aTotal}\n  Mortalidad    : ${aMuertas} aves (${mort})\n  Peso promedio : ${aPeso?aPeso+' g':'no registrado'}${pesoRef}\n  Producción    : ${aProd?aProd+'%':'no registrada'}\n  Cons. alimento: ${aAlim?aAlim+' g/día/ave':'no registrado'}\n  Signos clínicos: ${aSignos.length?aSignos.join(', '):'Ninguno registrado'}\n  Tratamiento   : ${aTrat}\n\n──────────────────────────────────────────\n  OBSERVACIONES GENERALES\n──────────────────────────────────────────\n  ${obs}\n\n══════════════════════════════════════════\n  Generado: ${new Date().toLocaleString('es-SV')}\n══════════════════════════════════════════`;
-    resumen=`🐔 Aves — Semana ${aSemana||'—'} | ${aTotal} aves`;
+    const mort=parseInt(aTotal)>0?((parseInt(aMuertas)/parseInt(aTotal))*100).toFixed(2)+'%':'—';
+    let pesoRef='',consumoRef='',prodRef='';
+    if(aSemana){
+      const row=getRowByWeek(aSemana,razaAve);
+      if(row){
+        if(aPeso){const d=(parseInt(aPeso)-row[1]);pesoRef=`\n     Ideal sem.${aSemana}: ${row[1]}–${row[2]} g | Dif: ${d>0?'+':''}${d} g`;}
+        consumoRef=`\n     Consumo ideal: ${row[3]} g/día/ave`;
+        prodRef=`\n     Producción ideal: ${row[4]}%`;
+      }
+    }
+    reporte=`╔══════════════════════════════════════════╗
+  REPORTE DE VISITA — AVES (${razaNombre})
+  Diagnóstico de Campo v6.0
+╚══════════════════════════════════════════╝
+
+  Granja        : ${granja}
+  Fecha         : ${fecha}
+  Encargado     : ${enc}
+  Lote/Galpón   : ${lote}
+  Raza          : ${razaNombre}
+
+──────────────────────────────────────────
+  DATOS DEL LOTE
+──────────────────────────────────────────
+  Semana de vida: ${aSemana||'—'}
+  Total aves    : ${aTotal}
+  Mortalidad    : ${aMuertas} aves (${mort})
+  Peso promedio : ${aPeso?aPeso+' g':'no registrado'}${pesoRef}
+  Producción    : ${aProd?aProd+'%':'no registrada'}${prodRef}
+  Cons. alimento: ${aAlim?aAlim+' g/día/ave':'no registrado'}${consumoRef}
+  Bebederos     : ${aBeb}
+  Signos clínicos: ${aSignos.length?aSignos.join(', '):'Ninguno registrado'}
+  Enfermedades  : ${aEnf}
+  Medicamentos  : ${aMeds}
+  Tratamiento   : ${aTrat}
+
+──────────────────────────────────────────
+  OBSERVACIONES GENERALES
+──────────────────────────────────────────
+  ${obs}
+
+══════════════════════════════════════════
+  Generado: ${new Date().toLocaleString('es-SV')}
+══════════════════════════════════════════`;
+    resumen=`🐔 Aves ${razaNombre} — Semana ${aSemana||'—'} | ${aTotal} aves`;
   }
 
-  const reg={id:Date.now(),granja,fecha,lote,reporte,modo,resumen};
+  const reg={id:Date.now(),granja,fecha,lote,reporte,modo,resumen,raza:razaAve};
   historial.unshift(reg);
   saveHist();
   document.getElementById('modal-content').textContent=reporte;
@@ -387,6 +746,9 @@ function guardarVisita(){
   setTimeout(()=>a.innerHTML='',3000);
 }
 
+// ============================================================
+// COPIAR / DESCARGAR
+// ============================================================
 function copiarReporte(){
   navigator.clipboard.writeText(document.getElementById('modal-content').textContent)
     .then(()=>{const b=event.target;b.textContent='✓ Copiado';setTimeout(()=>b.textContent='Copiar reporte',2000)});
@@ -395,48 +757,50 @@ function copiarMH(){
   navigator.clipboard.writeText(document.getElementById('mh-content').textContent)
     .then(()=>{const b=event.target;b.textContent='✓ Copiado';setTimeout(()=>b.textContent='Copiar',2000)});
 }
+function copiarResumenGalpones(){
+  navigator.clipboard.writeText(document.getElementById('modal-galpones-content').textContent)
+    .then(()=>{const b=event.target;b.textContent='✓ Copiado';setTimeout(()=>b.textContent='Copiar',2000)});
+}
 
+// ============================================================
+// HISTORIAL
+// ============================================================
 function renderHistorial(){
   const q=(document.getElementById('hist-buscar').value||'').toLowerCase();
   const lista=historial.filter(r=>(!modo||r.modo===modo)&&r.granja.toLowerCase().includes(q));
   const el=document.getElementById('hist-list');
-  if(!lista.length){el.innerHTML='<div class="empty-state">'+(q?'No se encontraron reportes con ese nombre.':'No hay reportes guardados aún.')+'</div>';return;}
+  if(!lista.length){el.innerHTML='<div class="empty">'+(q?'No se encontraron reportes.':'No hay reportes guardados aún.')+'</div>';return;}
   el.innerHTML=lista.map(r=>`
     <div class="hist-item" onclick="verReporte(${historial.indexOf(r)})">
       <div class="hist-top">
-        <span class="hist-granja">${r.resumen?r.resumen.split('|')[0].trim():r.granja}</span>
+        <span class="hist-granja">${r.resumen||r.granja}</span>
         <span class="hist-fecha">${r.fecha}</span>
       </div>
-      <div class="hist-meta">Granja: ${r.granja} &nbsp;·&nbsp; Lote: ${r.lote||'—'}</div>
+      <div class="hist-meta">Granja: ${r.granja} · Lote: ${r.lote||'—'}</div>
     </div>`).join('');
 }
 
 function verReporte(idx){
-  currentHistIdx=idx;
-  const r=historial[idx];
+  currentHistIdx=idx;const r=historial[idx];
   document.getElementById('mh-title').textContent=r.granja+' — '+r.fecha;
   document.getElementById('mh-content').textContent=r.reporte;
   document.getElementById('modal-hist').classList.add('open');
 }
 
 function borrarReporte(){
-  if(!confirm('¿Eliminar este reporte del historial?'))return;
-  historial.splice(currentHistIdx,1);
-  saveHist();
-  document.getElementById('modal-hist').classList.remove('open');
-  renderHistorial();
+  if(!confirm('¿Eliminar este reporte?'))return;
+  historial.splice(currentHistIdx,1);saveHist();
+  document.getElementById('modal-hist').classList.remove('open');renderHistorial();
 }
 
 function exportarTodo(){
   const lista=historial.filter(r=>!modo||r.modo===modo);
   if(!lista.length){alert('No hay reportes para exportar.');return;}
-  const txt=lista.map(r=>r.reporte).join('\n\n'+'═'.repeat(50)+'\n\n');
-  descargarTexto(txt,'reportes_campo.txt');
+  descargarTexto(lista.map(r=>r.reporte).join('\n\n'+'═'.repeat(50)+'\n\n'),'reportes_campo.txt');
 }
 
 function descargarUno(){
-  const r=historial[currentHistIdx];
-  if(!r)return;
+  const r=historial[currentHistIdx];if(!r)return;
   descargarTexto(r.reporte,`reporte_${r.granja.replace(/\s/g,'_')}_${r.fecha}.txt`);
 }
 
@@ -447,6 +811,9 @@ function descargarTexto(texto,nombre){
   URL.revokeObjectURL(url);
 }
 
+// ============================================================
+// ENFERMEDADES
+// ============================================================
 function renderEnf(){
   if(!modo)return;
   const lista=modo==='cerdo'?ENF_PORCINAS:ENF_AVES;
@@ -455,15 +822,15 @@ function renderEnf(){
     <div class="enf-item">
       <div class="enf-header" onclick="toggleEnf(this)">
         <span class="enf-name">${e.n}</span>
-        <span style="font-size:20px;color:var(--text2);line-height:1">+</span>
+        <span style="font-size:18px;color:var(--text2)">+</span>
       </div>
       <div class="enf-body">
-        <div class="enf-row"><span class="enf-label">Signos:</span><span class="enf-val">${e.signos}</span></div>
+        <div class="enf-row"><span class="enf-label">Signos</span><span class="enf-val">${e.signos}</span></div>
         <div class="enf-row" style="flex-direction:column">
-          <span class="enf-label" style="margin-bottom:6px">Medicamentos:</span>
-          <div>${e.medicamentos.map(m=>`<span class="badge badge-info">${m}</span>`).join('')}</div>
+          <span class="enf-label" style="margin-bottom:6px">Medicamentos</span>
+          <div>${e.medicamentos.map(m=>`<span class="badge badge-blue">${m}</span>`).join('')}</div>
         </div>
-        <div class="enf-row"><span class="enf-label">Prevención:</span><span class="enf-val">${e.prev}</span></div>
+        <div class="enf-row"><span class="enf-label">Prevención</span><span class="enf-val">${e.prev}</span></div>
       </div>
     </div>`).join('');
 }
@@ -473,41 +840,64 @@ function toggleEnf(h){
   h.querySelector('span:last-child').textContent=b.classList.contains('open')?'−':'+';
 }
 
+// ============================================================
+// PESOS / CONSUMO
+// ============================================================
 function renderPesos(){
   if(!modo)return;
   const panel=document.getElementById('pesos-panel');
   if(modo==='ave'){
+    const data=getDatos(razaAve);
+    const razaNombre=razaAve==='LB'?'Lohmann Brown':'Hy-Line Brown';
     panel.innerHTML=`
-      <div class="subsection-title">🐔 Hy-Line Brown — Peso corporal por semana (g)</div>
-      <p style="font-size:12px;color:var(--text2);margin-bottom:12px">Fuente: Guía de manejo Hy-Line Brown. Ingresa la semana para resaltarla.</p>
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
-        <label style="font-size:12px;color:var(--text2)">Buscar semana:</label>
-        <input type="number" id="buscar-semana" min="1" max="80" placeholder="Ej: 24" oninput="resaltarSemana()" style="width:90px;padding:7px 10px;border:0.5px solid var(--border);border-radius:var(--radius);background:var(--bg);color:var(--text);font-size:13px"/>
+      <div class="panel-title">🐔 ${razaNombre} — Peso, Consumo y Producción por Semana</div>
+      <p style="font-size:12px;color:var(--text2);margin-bottom:12px">Fuente: Manual de manejo ${razaNombre}. Semanas 1–100.</p>
+      <div class="raza-tabs" style="margin-bottom:12px">
+        <button class="raza-tab ${razaAve==='HL'?'active-hl':''}" onclick="setRaza('HL');showTab('pesos')">Hy-Line Brown</button>
+        <button class="raza-tab ${razaAve==='LB'?'active-lb':''}" onclick="setRaza('LB');showTab('pesos')">Lohmann Brown</button>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+        <label style="font-size:12px;color:var(--text2);font-weight:600">Buscar semana:</label>
+        <input type="number" id="buscar-semana" min="1" max="100" placeholder="Ej: 24" oninput="resaltarSemana()" style="width:90px;padding:7px 10px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg);color:var(--text);font-size:13px;font-family:var(--mono)"/>
+        <div id="consumo-semana-info" style="display:none" class="consumo-info"></div>
       </div>
       <div style="overflow-x:auto">
-        <table class="peso-table">
-          <thead><tr><th>Semana</th><th>Peso mínimo (g)</th><th>Peso máximo (g)</th></tr></thead>
+        <table class="data-table">
+          <thead><tr><th>Semana</th><th>Peso mín (g)</th><th>Peso máx (g)</th><th>Consumo (g/día)</th><th>Consumo (qq/sem/1000 aves)</th><th>Prod. ideal %</th></tr></thead>
           <tbody id="hl-body">`+
-          HYLINE.map(r=>`<tr id="hlr-${r[0]}"><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('')+
+          data.map(r=>{
+            const qqSem=((r[3]*7*1000)/46000).toFixed(2);
+            return `<tr id="hlr-${r[0]}"><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${qqSem}</td><td>${r[4]}%</td></tr>`;
+          }).join('')+
           `</tbody>
         </table>
+      </div>
+      <div style="margin-top:20px">
+        <p style="font-size:13px;font-weight:700;margin-bottom:10px">Comparar peso real vs estándar</p>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap">
+          <label style="font-size:12px;color:var(--text2);font-weight:600">Semana:</label>
+          <input type="number" id="cmp-semana" min="1" max="100" placeholder="Ej: 30" style="width:90px;padding:7px 10px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg);color:var(--text);font-size:13px;font-family:var(--mono)" oninput="calcAveComp()"/>
+          <label style="font-size:12px;color:var(--text2);font-weight:600">Peso real (g):</label>
+          <input type="number" id="cmp-peso" placeholder="Ej: 1650" style="width:110px;padding:7px 10px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg);color:var(--text);font-size:13px;font-family:var(--mono)" oninput="calcAveComp()"/>
+        </div>
+        <div id="cmp-resultado" style="font-size:13px;margin-top:4px"></div>
       </div>`;
   } else {
     panel.innerHTML=`
-      <div class="subsection-title">🐷 Cerdos — Pesos ideales por etapa productiva</div>
+      <div class="panel-title">🐷 Cerdos — Pesos ideales por etapa productiva</div>
       <p style="font-size:12px;color:var(--text2);margin-bottom:12px">Estándares de producción porcina ciclo completo.</p>
       <div style="overflow-x:auto">
-        <table class="peso-table">
-          <thead><tr><th>Etapa</th><th>Edad</th><th>Mínimo (kg)</th><th>Máximo (kg)</th></tr></thead>
+        <table class="data-table">
+          <thead><tr><th>Etapa</th><th>Edad</th><th>Mín (kg)</th><th>Máx (kg)</th></tr></thead>
           <tbody>`+
           CERDOS_ETAPAS.map(e=>`<tr><td style="text-align:left;padding-left:10px">${e.etapa}</td><td>${e.edad}</td><td>${e.min}</td><td>${e.max}</td></tr>`).join('')+
           `</tbody>
         </table>
       </div>
       <div style="margin-top:18px">
-        <p style="font-size:13px;font-weight:600;margin-bottom:10px">Comparar peso real vs estándar</p>`+
+        <p style="font-size:13px;font-weight:700;margin-bottom:10px">Comparar peso real vs estándar</p>`+
         CERDOS_ETAPAS.map((e,i)=>`
-          <div class="weight-input-row">
+          <div class="weight-row">
             <label>${e.etapa} (${e.min}–${e.max} kg)</label>
             <input type="number" step="0.1" placeholder="kg real" oninput="calcDiff(this,${e.min},${e.max},'d${i}')"/>
             <span id="d${i}" class="diff"></span>
@@ -520,7 +910,34 @@ function resaltarSemana(){
   document.querySelectorAll('#hl-body tr').forEach(r=>r.classList.remove('highlight'));
   const s=document.getElementById('buscar-semana').value;
   const row=document.getElementById('hlr-'+s);
-  if(row){row.classList.add('highlight');row.scrollIntoView({behavior:'smooth',block:'center'});}
+  const infoEl=document.getElementById('consumo-semana-info');
+  if(row){
+    row.classList.add('highlight');
+    row.scrollIntoView({behavior:'smooth',block:'center'});
+    const data=getDatos(razaAve);
+    const r=data.find(d=>d[0]===parseInt(s));
+    if(r){
+      const qq=((r[3]*7*1000)/46000).toFixed(2);
+      infoEl.style.display='block';
+      infoEl.textContent=`Sem ${s}: Consumo ${r[3]} g/día/ave · ${(r[3]*7).toLocaleString()} g/sem/ave · ${qq} qq/sem/1000 aves · Prod ideal ${r[4]}%`;
+    }
+  } else {infoEl.style.display='none';}
+}
+
+function calcAveComp(){
+  const sem=document.getElementById('cmp-semana').value;
+  const pesoR=document.getElementById('cmp-peso').value;
+  const el=document.getElementById('cmp-resultado');
+  if(!sem||!pesoR){el.innerHTML='';return;}
+  const row=getRowByWeek(sem,razaAve);
+  if(!row){el.innerHTML='<span style="color:var(--text2)">Semana no encontrada en la tabla.</span>';return;}
+  const v=parseInt(pesoR);
+  const d=v-row[1];
+  let msg,cls;
+  if(v<row[1]){msg=`▼ ${Math.abs(d)}g bajo del mínimo ideal (${row[1]}–${row[2]}g)`;cls='diff-low';}
+  else if(v>row[2]){msg=`▲ +${v-row[2]}g por encima del máximo ideal`;cls='diff-high';}
+  else{msg=`✓ Peso en rango ideal (${row[1]}–${row[2]}g)`;cls='diff-ok';}
+  el.innerHTML=`<span class="diff ${cls}">${msg}</span>`;
 }
 
 function calcDiff(input,min,max,id){
@@ -531,6 +948,241 @@ function calcDiff(input,min,max,id){
   else{el.textContent='✓ en rango ideal';el.className='diff diff-ok';}
 }
 
+// ============================================================
+// MORTALIDAD
+// ============================================================
+function renderMortalidad(){
+  if(!modo)return;
+  const panel=document.getElementById('mortalidad-panel');
+  if(modo==='ave'){
+    const data=getDatos(razaAve);
+    const razaNombre=razaAve==='LB'?'Lohmann Brown':'Hy-Line Brown';
+    panel.innerHTML=`
+      <div class="panel-title">📊 Mortalidad ideal acumulada — ${razaNombre}</div>
+      <div class="raza-tabs" style="margin-bottom:12px">
+        <button class="raza-tab ${razaAve==='HL'?'active-hl':''}" onclick="setRaza('HL');showTab('mortalidad')">Hy-Line Brown</button>
+        <button class="raza-tab ${razaAve==='LB'?'active-lb':''}" onclick="setRaza('LB');showTab('mortalidad')">Lohmann Brown</button>
+      </div>
+      <p style="font-size:12px;color:var(--text2);margin-bottom:14px">Compará la mortalidad acumulada real de tu lote con los estándares del manual.</p>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+        <label style="font-size:12px;font-weight:600;color:var(--text2)">Semana actual:</label>
+        <input type="number" id="mort-semana" min="1" max="100" placeholder="Ej: 40" style="width:90px;padding:7px 10px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg);color:var(--text);font-size:13px;font-family:var(--mono)" oninput="calcMort()"/>
+        <label style="font-size:12px;font-weight:600;color:var(--text2)">Aves iniciales:</label>
+        <input type="number" id="mort-inicial" placeholder="Ej: 5000" style="width:110px;padding:7px 10px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg);color:var(--text);font-size:13px;font-family:var(--mono)" oninput="calcMort()"/>
+        <label style="font-size:12px;font-weight:600;color:var(--text2)">Muertas totales:</label>
+        <input type="number" id="mort-muertas" placeholder="Ej: 120" style="width:110px;padding:7px 10px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg);color:var(--text);font-size:13px;font-family:var(--mono)" oninput="calcMort()"/>
+      </div>
+      <div id="mort-resultado" style="margin-bottom:16px"></div>
+      <div style="overflow-x:auto">
+        <table class="data-table">
+          <thead><tr><th>Semana</th><th>Mort. Acum. Ideal (%)</th><th>Ref. en 5000 aves</th></tr></thead>
+          <tbody id="mort-body">`+
+          data.map(r=>`<tr id="mortr-${r[0]}"><td>${r[0]}</td><td>${r[5]}%</td><td>${Math.round(5000*r[5]/100)} aves</td></tr>`).join('')+
+          `</tbody>
+        </table>
+      </div>`;
+  } else {
+    panel.innerHTML=`
+      <div class="panel-title">📊 Mortalidad — Porcinos</div>
+      <p style="font-size:12px;color:var(--text2);margin-bottom:14px">Parámetros de referencia de mortalidad por etapa en producción porcina ciclo completo.</p>
+      <div style="overflow-x:auto">
+        <table class="data-table">
+          <thead><tr><th>Etapa</th><th>Mort. aceptable (%)</th><th>Mort. de alerta (%)</th></tr></thead>
+          <tbody>
+            <tr><td>Lechones lactantes (0-21d)</td><td>&lt; 8%</td><td>&gt; 12%</td></tr>
+            <tr><td>Pre-inicio (21-42d)</td><td>&lt; 2%</td><td>&gt; 4%</td></tr>
+            <tr><td>Inicio (42-70d)</td><td>&lt; 1.5%</td><td>&gt; 3%</td></tr>
+            <tr><td>Levante (70-120d)</td><td>&lt; 1%</td><td>&gt; 2%</td></tr>
+            <tr><td>Engorde (120-160d)</td><td>&lt; 1%</td><td>&gt; 2%</td></tr>
+            <tr><td>Cerdas reproductoras/año</td><td>&lt; 5%</td><td>&gt; 8%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top:18px">
+        <p style="font-size:13px;font-weight:700;margin-bottom:10px">Calcular % mortalidad del lote</p>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <label style="font-size:12px;font-weight:600;color:var(--text2)">Total animales:</label>
+          <input type="number" id="cmort-total" placeholder="Ej: 200" style="width:110px;padding:7px 10px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg);color:var(--text);font-size:13px;font-family:var(--mono)" oninput="calcMortCerdo()"/>
+          <label style="font-size:12px;font-weight:600;color:var(--text2)">Muertos:</label>
+          <input type="number" id="cmort-muertos" placeholder="Ej: 12" style="width:90px;padding:7px 10px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg);color:var(--text);font-size:13px;font-family:var(--mono)" oninput="calcMortCerdo()"/>
+        </div>
+        <div id="cmort-resultado" style="margin-top:10px;font-size:14px;font-weight:600"></div>
+      </div>`;
+  }
+}
+
+function calcMort(){
+  const sem=document.getElementById('mort-semana')?.value;
+  const ini=document.getElementById('mort-inicial')?.value;
+  const muertas=document.getElementById('mort-muertas')?.value;
+  const el=document.getElementById('mort-resultado');
+  if(!el)return;
+  // Resaltar fila
+  document.querySelectorAll('#mort-body tr').forEach(r=>r.classList.remove('highlight','highlight-green'));
+  if(sem){const row=document.getElementById('mortr-'+sem);if(row)row.classList.add('highlight');}
+  if(!sem||!ini||!muertas){el.innerHTML='';return;}
+  const mortReal=(parseInt(muertas)/parseInt(ini)*100).toFixed(2);
+  const row=getRowByWeek(sem,razaAve);
+  if(!row){el.innerHTML=`<div class="alert alert-info">Mortalidad real acumulada: <b>${mortReal}%</b></div>`;return;}
+  const ideal=row[5];
+  let cls='alert-ok',icon='✅',msg='dentro del rango ideal del manual';
+  if(parseFloat(mortReal)>ideal*1.3){cls='alert-err';icon='⚠️';msg='por encima del ideal — revisar causas';}
+  else if(parseFloat(mortReal)>ideal){cls='alert-info';icon='📋';msg='ligeramente elevada, monitorear';}
+  el.innerHTML=`<div class="alert ${cls}">${icon} Semana ${sem}: Mortalidad real <b>${mortReal}%</b> | Ideal ${razaAve==='LB'?'Lohmann':'Hy-Line'}: <b>${ideal}%</b> — ${msg}</div>`;
+}
+
+function calcMortCerdo(){
+  const total=document.getElementById('cmort-total').value;
+  const muertos=document.getElementById('cmort-muertos').value;
+  const el=document.getElementById('cmort-resultado');
+  if(!total||!muertos){el.innerHTML='';return;}
+  const pct=(parseInt(muertos)/parseInt(total)*100).toFixed(2);
+  el.innerHTML=`<span class="${parseFloat(pct)>5?'diff-low':'diff-ok'}">Mortalidad: ${pct}%</span>`;
+}
+
+// ============================================================
+// GALPONES
+// ============================================================
+function generarGalpones(){
+  const n=parseInt(document.getElementById('n-galpones').value);
+  const lista=document.getElementById('galpones-lista');
+  const btns=document.getElementById('galpones-btns');
+  if(!n||n<1){lista.innerHTML='';btns.style.display='none';return;}
+  btns.style.display='flex';
+  lista.innerHTML=Array.from({length:n},(_,i)=>buildGalponCard(i+1)).join('');
+}
+
+function buildGalponCard(num){
+  const isAve=modo==='ave';
+  return `<div class="galpon-card" id="galpon-${num}">
+    <div class="galpon-header">
+      <span class="galpon-num">🏠 Galpón ${num}</span>
+    </div>
+    <div class="grid3">
+      <div class="field"><label>N° de aves/animales</label><input type="number" id="g${num}-cantidad" placeholder="Ej: 1200" min="0"/></div>
+      <div class="field"><label>Semana de vida</label><input type="number" id="g${num}-semana" placeholder="Ej: 30" min="1" max="100"/></div>
+      ${isAve?`<div class="field"><label>Producción huevos (%)</label><input type="number" id="g${num}-prod" placeholder="0" min="0" max="100"/></div>`:''}
+      <div class="field"><label>Bebederos</label><input type="number" id="g${num}-beb" placeholder="0" min="0"/></div>
+      <div class="field"><label>Mortalidad (animales)</label><input type="number" id="g${num}-mort" placeholder="0" min="0"/></div>
+    </div>
+    <div class="field"><label>Enfermedades / signos observados</label><input id="g${num}-enf" placeholder="Ej: diarrea leve, aves caídas..."/></div>
+    <div class="field"><label>Medicamentos aplicados</label><input id="g${num}-meds" placeholder="Ej: Enrofloxacina 10mg/kg..."/></div>
+    <div class="field"><label>Observaciones</label><input id="g${num}-obs" placeholder="Condiciones generales del galpón"/></div>
+  </div>`;
+}
+
+function guardarGalpones(){
+  const n=parseInt(document.getElementById('n-galpones').value)||0;
+  galponesData=[];
+  for(let i=1;i<=n;i++){
+    galponesData.push({
+      num:i,
+      cantidad:document.getElementById(`g${i}-cantidad`)?.value||'0',
+      semana:document.getElementById(`g${i}-semana`)?.value||'—',
+      prod:document.getElementById(`g${i}-prod`)?.value||'—',
+      beb:document.getElementById(`g${i}-beb`)?.value||'—',
+      mort:document.getElementById(`g${i}-mort`)?.value||'0',
+      enf:document.getElementById(`g${i}-enf`)?.value||'—',
+      meds:document.getElementById(`g${i}-meds`)?.value||'—',
+      obs:document.getElementById(`g${i}-obs`)?.value||'—',
+    });
+  }
+  const el=document.getElementById('galpon-alert');
+  el.innerHTML='<div class="alert alert-ok">✓ Datos de galpones guardados.</div>';
+  setTimeout(()=>el.innerHTML='',2500);
+}
+
+function verResumenGalpones(){
+  guardarGalpones();
+  if(!galponesData.length){alert('Primero genera y guarda los galpones.');return;}
+  const totalAves=galponesData.reduce((s,g)=>s+parseInt(g.cantidad||0),0);
+  const totalMort=galponesData.reduce((s,g)=>s+parseInt(g.mort||0),0);
+  const mortPct=totalAves>0?(totalMort/totalAves*100).toFixed(2):'—';
+  let txt=`╔══════════════════════════════════════════╗\n  RESUMEN DE GALPONES\n  Diagnóstico de Campo v6.0\n╚══════════════════════════════════════════╝\n\n`;
+  txt+=`  Total galpones   : ${galponesData.length}\n  Total aves/animales: ${totalAves.toLocaleString()}\n  Total mortalidad : ${totalMort} (${mortPct}%)\n\n`;
+  galponesData.forEach(g=>{
+    const mortG=parseInt(g.cantidad)>0?(parseInt(g.mort)/parseInt(g.cantidad)*100).toFixed(2):'—';
+    txt+=`──────────────────────────────────────────\n  GALPÓN ${g.num}\n──────────────────────────────────────────\n`;
+    txt+=`  Cantidad         : ${g.cantidad}\n  Semana de vida   : ${g.semana}\n`;
+    if(g.prod!=='—') txt+=`  Producción       : ${g.prod}%\n`;
+    txt+=`  Bebederos        : ${g.beb}\n  Mortalidad       : ${g.mort} aves (${mortG}%)\n  Enfermedades     : ${g.enf}\n  Medicamentos     : ${g.meds}\n  Observaciones    : ${g.obs}\n\n`;
+  });
+  txt+=`══════════════════════════════════════════\n  Generado: ${new Date().toLocaleString('es-SV')}\n══════════════════════════════════════════`;
+  document.getElementById('modal-galpones-content').textContent=txt;
+  document.getElementById('modal-galpones').classList.add('open');
+}
+
+// ============================================================
+// FOTOS / IA
+// ============================================================
+function onFotosSeleccionadas(event){
+  const files=Array.from(event.target.files);
+  const preview=document.getElementById('foto-preview');
+  files.forEach(file=>{
+    const reader=new FileReader();
+    reader.onload=e=>{
+      const b64=e.target.result.split(',')[1];
+      const mime=file.type;
+      fotosBase64.push({b64,mime});
+      const thumb=document.createElement('div');
+      thumb.className='photo-thumb';
+      const idx=fotosBase64.length-1;
+      thumb.innerHTML=`<img src="${e.target.result}"/><button class="rm-btn" onclick="removeFoto(${idx},this.parentNode)">×</button>`;
+      preview.appendChild(thumb);
+    };
+    reader.readAsDataURL(file);
+  });
+  event.target.value='';
+}
+
+function removeFoto(idx,el){
+  fotosBase64[idx]=null;
+  el.remove();
+}
+
+function limpiarFotos(){
+  fotosBase64=[];
+  document.getElementById('foto-preview').innerHTML='';
+  document.getElementById('ia-resultado').style.display='none';
+}
+
+async function diagnosticarConIA(){
+  const fotos=fotosBase64.filter(Boolean);
+  if(!fotos.length){alert('Por favor sube al menos una foto.');return;}
+  const especie=document.getElementById('foto-especie').value;
+  const contexto=document.getElementById('foto-contexto').value||'';
+  const iaEl=document.getElementById('ia-resultado');
+  const textoEl=document.getElementById('ia-texto');
+  iaEl.style.display='block';
+  textoEl.innerHTML='<div class="ai-loading"><div class="spinner"></div> Analizando imágenes con IA...</div>';
+
+  const especieNombre=especie==='cerdo'?'cerdo/porcino':'gallina ponedora (Hy-Line Brown o Lohmann Brown)';
+  const userContent=[
+    {type:'text',text:`Eres un médico veterinario especialista en producción animal. Analiza las siguientes imágenes de un(a) ${especieNombre} y proporciona:\n1. Signos clínicos visibles en las fotos\n2. Posibles diagnósticos diferenciales (del más al menos probable)\n3. Recomendaciones inmediatas\n4. Si se requiere análisis de laboratorio\n\nContexto adicional del campo: ${contexto||'No proporcionado'}\n\nRecuerda indicar que este es un análisis orientativo y siempre se debe confirmar con un veterinario en campo.`},
+    ...fotos.map(f=>({type:'image',source:{type:'base64',media_type:f.mime,data:f.b64}}))
+  ];
+
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        messages:[{role:'user',content:userContent}]
+      })
+    });
+    const data=await resp.json();
+    const txt=data.content?.map(c=>c.text||'').join('')||'No se obtuvo respuesta.';
+    textoEl.innerHTML=txt.replace(/\n/g,'<br>');
+  }catch(err){
+    textoEl.innerHTML='<span style="color:var(--red)">Error al conectar con la IA. Verifica tu conexión.</span>';
+  }
+}
+
+// ============================================================
+// INIT
+// ============================================================
 loadHist();
 document.getElementById('v-fecha').value=new Date().toISOString().split('T')[0];
 </script>
